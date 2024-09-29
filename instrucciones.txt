@@ -1,3 +1,18 @@
+# En la MV de base de datos ejecutar db.txt usando adminer 
+
+docker run -d --rm --name mysql_c -e MYSQL_ROOT_PASSWORD=utec -p 8005:3306 -v mysql_data:/var/lib/mysql mysql:8.0
+docker run -d --rm --name adminer_c -p 8080:8080 adminer
+
+# Construir la imagen en docker (opcional)
+
+docker build -t api-aseguradora-clientes .
+
+# Subir la imagen a docker  (opcional)
+
+docker login -u jeanpiero
+docker tag api-aseguradora-clientes jeanpiero/api-aseguradora-clientes
+docker push jeanpiero/api-aseguradora-clientes
+docker logout
 
 # Ejecutar la imagen creada en la MV de produccion
 

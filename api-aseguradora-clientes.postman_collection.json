@@ -1,0 +1,239 @@
+{
+	"info": {
+		"_postman_id": "a8bddb0f-2885-4e99-9a16-2aea6a784571",
+		"name": "api-aseguradora-clientes",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "34047475",
+		"_collection_link": "https://dbp1-proyecto01.postman.co/workspace/DBP1-Proyecto01-Workspace~8a460a9e-b35c-4f07-87e1-570ceac128e8/collection/34047475-a8bddb0f-2885-4e99-9a16-2aea6a784571?action=share&source=collection_link&creator=34047475"
+	},
+	"item": [
+		{
+			"name": "01_01_Consultar clientes",
+			"request": {
+				"auth": {
+					"type": "edgegrid"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{ip}}:8000/clientes",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "8000",
+					"path": [
+						"clientes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "01_02_Consulta cliente id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{ip}}:8000/clientes/1",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "8000",
+					"path": [
+						"clientes",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "01_03_Nuevo cliente",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nombre\": \"Laura\",\r\n    \"apellido\": \"Martinez\",\r\n    \"email\": \"laura.martinez@example.com\",\r\n    \"telefono\": \"987654321\",\r\n    \"direccion\": \"Calle Nueva 123, Cusco\",\r\n    \"DNI\": \"12345679\"\r\n}\r\n\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{ip}}:8000/clientes",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "8000",
+					"path": [
+						"clientes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "01_04_Modificar cliente",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nombre\": \"Pablo\",\r\n    \"apellido\": \"Pico\",\r\n    \"email\": \"pablo.pico@example.com\",\r\n    \"telefono\": \"987654321\",\r\n    \"direccion\": \"Calle Nueva 456, Lima\",\r\n    \"DNI\": \"12345678\"\r\n}\r\n\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{ip}}:8000/clientes/1",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "8000",
+					"path": [
+						"clientes",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "01_05_Eliminar cliente",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{ip}}:8000/clientes/1",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "8000",
+					"path": [
+						"clientes",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "02_01_Consultar agentes",
+			"request": {
+				"auth": {
+					"type": "edgegrid"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{ip}}:8000/agentes",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "8000",
+					"path": [
+						"agentes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "02_02_Consulta agente id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{ip}}:8000/agentes/1",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "8000",
+					"path": [
+						"agentes",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "02_03_Nuevo agente",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nombre\": \"Laura\",\r\n    \"apellido\": \"Martinez\",\r\n    \"email\": \"laura.martinez@example.com\",\r\n    \"telefono\": \"987654321\",\r\n    \"direccion_oficina\": \"Calle Nueva 123, Cusco\",\r\n    \"codigo_registro\": \"AG-004\",  \r\n    \"especialidad\": \"Seguros de Salud\"  \r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{ip}}:8000/agentes",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "8000",
+					"path": [
+						"agentes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "02_04_Modificar agente",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nombre\": \"Laura\",\r\n    \"apellido\": \"Martinez\",\r\n    \"email\": \"laura.martinez@example.com\",\r\n    \"telefono\": \"987654321\",\r\n    \"direccion_oficina\": \"Calle Nueva 123, Cusco\",\r\n    \"codigo_registro\": \"AG-004\",  \r\n    \"especialidad\": \"Seguros de Salud\"  \r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{ip}}:8000/agentes/1",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "8000",
+					"path": [
+						"agentes",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "02_05_Eliminar agente",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{ip}}:8000/agentes/1",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "8000",
+					"path": [
+						"agentes",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

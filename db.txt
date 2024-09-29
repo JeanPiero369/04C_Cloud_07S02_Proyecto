@@ -1,3 +1,5 @@
+-- Ejecutar en la MV de base de datos
+
 -- Eliminar la base de datos si existe
 DROP DATABASE IF EXISTS Aseguradora;
 
