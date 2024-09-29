@@ -1,0 +1,44 @@
+DROP DATABASE IF EXISTS bd_api_employees;
+CREATE DATABASE bd_api_employees CHARSET utf8mb4;
+USE bd_api_employees;
+
+-- Tabla Cliente
+CREATE TABLE clientes (
+    id_cliente INT(11) NOT NULL AUTO_INCREMENT,
+    nombre VARCHAR(100) NOT NULL,
+    apellido VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    telefono VARCHAR(20) NOT NULL,
+    direccion VARCHAR(255) NOT NULL,
+    DNI VARCHAR(20) NOT NULL,
+    PRIMARY KEY (id_cliente)
+);
+
+-- Tabla Agente
+CREATE TABLE agentes (
+    id_agente INT(11) NOT NULL AUTO_INCREMENT,
+    nombre VARCHAR(100) NOT NULL,
+    apellido VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    telefono VARCHAR(20) NOT NULL,
+    direccion_oficina VARCHAR(255) NOT NULL,
+    codigo_registro VARCHAR(50) NOT NULL,
+    especialidad VARCHAR(100) NOT NULL,
+    PRIMARY KEY (id_agente)
+);
+
+-- Inserción de datos en la tabla Cliente
+INSERT INTO clientes (nombre, apellido, email, telefono, direccion, DNI) 
+VALUES
+('Juan', 'Perez', 'juan.perez@example.com', '123456789', 'Av. Principal 123, Lima', '87654321'),
+('Maria', 'Garcia', 'maria.garcia@example.com', '987654321', 'Calle Secundaria 456, Arequipa', '12345678'),
+('Luis', 'Lopez', 'luis.lopez@example.com', '789123456', 'Jiron Los Alamos 789, Trujillo', '56781234');
+
+-- Inserción de datos en la tabla Agente
+INSERT INTO agentes (nombre, apellido, email, telefono, direccion_oficina, codigo_registro, especialidad) 
+VALUES
+('Carlos', 'Ramirez', 'carlos.ramirez@example.com', '912345678', 'Av. Agentes 123, Lima', 'AG-001', 'Seguros de Vida'),
+('Ana', 'Fernandez', 'ana.fernandez@example.com', '923456789', 'Calle Agentes 456, Lima', 'AG-002', 'Seguros de Vehículos'),
+('Pedro', 'Gomez', 'pedro.gomez@example.com', '934567890', 'Jiron Agentes 789, Lima', 'AG-003', 'Seguros de Propiedades');
+
+COMMIT;
