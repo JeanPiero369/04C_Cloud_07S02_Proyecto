@@ -8,7 +8,7 @@ host_name = "3.210.219.55"
 port_number = "8005"
 user_name = "root"
 password_db = "utec"
-database_name = "bd_api_seguro"  # Nombre de la base de datos ajustado
+database_name = "Aseguradora"  
 
 # Get echo test for load balancer's health check
 @app.get("/")

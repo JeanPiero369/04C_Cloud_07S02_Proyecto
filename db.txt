@@ -1,6 +1,11 @@
-DROP DATABASE IF EXISTS bd_api_employees;
-CREATE DATABASE bd_api_employees CHARSET utf8mb4;
-USE bd_api_employees;
+-- Eliminar la base de datos si existe
+DROP DATABASE IF EXISTS Aseguradora;
+
+-- Crear la base de datos con la codificación utf8mb4
+CREATE DATABASE Aseguradora CHARACTER SET utf8mb4;
+
+-- Usar la base de datos Aseguradora
+USE Aseguradora;
 
 -- Tabla Cliente
 CREATE TABLE clientes (
@@ -41,4 +46,5 @@ VALUES
 ('Ana', 'Fernandez', 'ana.fernandez@example.com', '923456789', 'Calle Agentes 456, Lima', 'AG-002', 'Seguros de Vehículos'),
 ('Pedro', 'Gomez', 'pedro.gomez@example.com', '934567890', 'Jiron Agentes 789, Lima', 'AG-003', 'Seguros de Propiedades');
 
+-- Finalizar transacción
 COMMIT;
