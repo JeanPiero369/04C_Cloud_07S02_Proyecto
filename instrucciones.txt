@@ -1,0 +1,4 @@
+
+# Ejecutar la imagen creada en la MV de produccion
+
+docker run -d --rm --name api-aseguradora-clientes -p 8000:8000 jeanpiero/api-aseguradora-clientes

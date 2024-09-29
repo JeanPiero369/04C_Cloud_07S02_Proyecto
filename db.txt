@@ -8,7 +8,7 @@ CREATE DATABASE Aseguradora CHARACTER SET utf8mb4;
 USE Aseguradora;
 
 -- Tabla Cliente
-CREATE TABLE clientes (
+CREATE TABLE Cliente (
     id_cliente INT(11) NOT NULL AUTO_INCREMENT,
     nombre VARCHAR(100) NOT NULL,
     apellido VARCHAR(100) NOT NULL,
@@ -20,7 +20,7 @@ CREATE TABLE clientes (
 );
 
 -- Tabla Agente
-CREATE TABLE agentes (
+CREATE TABLE Agente (
     id_agente INT(11) NOT NULL AUTO_INCREMENT,
     nombre VARCHAR(100) NOT NULL,
     apellido VARCHAR(100) NOT NULL,
@@ -33,14 +33,14 @@ CREATE TABLE agentes (
 );
 
 -- Inserción de datos en la tabla Cliente
-INSERT INTO clientes (nombre, apellido, email, telefono, direccion, DNI) 
+INSERT INTO Cliente (nombre, apellido, email, telefono, direccion, DNI) 
 VALUES
 ('Juan', 'Perez', 'juan.perez@example.com', '123456789', 'Av. Principal 123, Lima', '87654321'),
 ('Maria', 'Garcia', 'maria.garcia@example.com', '987654321', 'Calle Secundaria 456, Arequipa', '12345678'),
 ('Luis', 'Lopez', 'luis.lopez@example.com', '789123456', 'Jiron Los Alamos 789, Trujillo', '56781234');
 
 -- Inserción de datos en la tabla Agente
-INSERT INTO agentes (nombre, apellido, email, telefono, direccion_oficina, codigo_registro, especialidad) 
+INSERT INTO Agente (nombre, apellido, email, telefono, direccion_oficina, codigo_registro, especialidad) 
 VALUES
 ('Carlos', 'Ramirez', 'carlos.ramirez@example.com', '912345678', 'Av. Agentes 123, Lima', 'AG-001', 'Seguros de Vida'),
 ('Ana', 'Fernandez', 'ana.fernandez@example.com', '923456789', 'Calle Agentes 456, Lima', 'AG-002', 'Seguros de Vehículos'),
