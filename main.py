@@ -1,15 +1,21 @@
 from fastapi import FastAPI, HTTPException
 import mysql.connector
 import schemas  # Ensure you have schemas defined for Cliente and Agente
+from schemas import Cliente, Agente, Especialidad
+from typing import List
+
 
 app = FastAPI()
 
-# Database configuration
-host_name = "3.210.219.55"
-port_number = "8005"
-user_name = "root"
-password_db = "utec"
-database_name = "Aseguradora"
+import os
+
+# Configuración de la base de datos
+host_name = os.getenv("DATABASE_HOST", "3.210.219.55")
+port_number = os.getenv("DATABASE_PORT", "8005")
+user_name = os.getenv("DATABASE_USER", "root")
+password_db = os.getenv("DATABASE_PASSWORD", "utec")
+database_name = os.getenv("DATABASE_NAME", "Aseguradora")
+
 
 # Health check endpoint
 @app.get("/")
@@ -30,7 +36,7 @@ def get_clientes():
     result = cursor.fetchall()
     cursor.close()
     mydb.close()
-    return {"clientes": result}
+    return result
 
 # Obtener un cliente por ID con detalles de Persona
 @app.get("/clientes/{id_cliente}", response_model=Cliente)
@@ -47,7 +53,7 @@ def get_cliente(id_cliente: int):
     cursor.close()
     mydb.close()
     if result:
-        return {"cliente": result}
+        return result
     raise HTTPException(status_code=404, detail="Cliente not found")
 
 # Agregar un nuevo cliente y crear la entrada correspondiente en Persona
@@ -123,7 +129,7 @@ def get_agentes():
     result = cursor.fetchall()
     cursor.close()
     mydb.close()
-    return {"agentes": result}
+    return result
 
 # Agregar un nuevo agente y crear la entrada correspondiente en Persona
 @app.post("/agentes", response_model=Agente)
@@ -194,7 +200,7 @@ def get_especialidades():
     result = cursor.fetchall()
     cursor.close()
     mydb.close()
-    return {"especialidades": result}
+    return result
 
 # Agregar una nueva especialidad
 @app.post("/especialidades", response_model=Especialidad)
@@ -232,4 +238,3 @@ def delete_especialidad(id_especialidad: int):
     cursor.close()
     mydb.close()
     return {"message": "Especialidad deleted successfully"}
-

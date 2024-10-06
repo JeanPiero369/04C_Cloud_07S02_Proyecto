@@ -3,7 +3,7 @@ from typing import Optional
 
 # Esquema para Persona (base común entre Cliente y Agente)
 class Persona(BaseModel):
-    id_persona: Optional[int]  # Asignado automáticamente por la base de datos
+    id_persona: Optional[int]=None # Asignado automáticamente por la base de datos
     nombre: str
     apellido: str
     email: str
