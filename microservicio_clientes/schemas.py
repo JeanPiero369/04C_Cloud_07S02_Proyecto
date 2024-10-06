@@ -16,11 +16,10 @@ class Cliente(Persona):
 
 # Esquema para Especialidad
 class Especialidad(BaseModel):
-    id_especialidad: Optional[int]  # Asignado automáticamente por la base de datos
+    id_especialidad: Optional[int]=None # Asignado automáticamente por la base de datos
     nombre_especialidad: str
 
 # Esquema para Agente, heredando de Persona
 class Agente(Persona):
     direccion_oficina: str
-    codigo_registro: str
-    especialidad: Especialidad  # Relación con la especialidad
+    id_especialidad: int  # Relación con la especialidad
