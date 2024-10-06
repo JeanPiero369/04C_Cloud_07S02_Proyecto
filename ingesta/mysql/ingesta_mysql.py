@@ -5,11 +5,11 @@ import pandas as pd
 
 # Configuración de la base de datos MySQL desde variables de entorno
 db_config = {
-    'host': os.environ.get('MYSQL_HOST', 'localhost'),
-    'port': int(os.environ.get('MYSQL_PORT', 3306)),
-    'user': os.environ.get('MYSQL_USER', 'root'),
-    'password': os.environ.get('MYSQL_PASSWORD', 'utec'),
-    'database': os.environ.get('MYSQL_DATABASE', 'universidad')
+    'host': os.environ.get('MYSQL_HOST'),
+    'port': int(os.environ.get('MYSQL_PORT')),
+    'user': os.environ.get('MYSQL_USER'),
+    'password': os.environ.get('MYSQL_PASSWORD'),
+    'database': os.environ.get('MYSQL_DATABASE')
 }
 
 # Conexión a la base de datos MySQL
