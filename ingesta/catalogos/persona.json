@@ -1,0 +1,7 @@
+[
+    {"Name": "id_persona", "Type": "int"},
+    {"Name": "nombre", "Type": "string"},
+    {"Name": "apellido", "Type": "string"},
+    {"Name": "email", "Type": "string"},
+    {"Name": "telefono", "Type": "string"}
+]

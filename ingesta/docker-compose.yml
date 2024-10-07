@@ -13,7 +13,7 @@ services:
       MYSQL_USER: "root"          # Cambia a tu usuario de MySQL
       MYSQL_PASSWORD: "utec"      # Cambia a tu contraseña de MySQL
       MYSQL_DATABASE: "Aseguradora"  # Cambia a tu base de datos MySQL
-      S3_BUCKET: "04c-cloud-05s03-ingesta-from-database"
+      S3_BUCKET: "04c-cloud-07s02-proyecto-mysql"
 
   postgresql-ingesta:
     build:
@@ -28,7 +28,7 @@ services:
       POSTGRES_USER: "tu_usuario"        # Cambia a tu usuario de PostgreSQL
       POSTGRES_PASSWORD: "tu_contraseña"  # Cambia a tu contraseña de PostgreSQL
       POSTGRES_DB: "universidad"         # Cambia a tu base de datos PostgreSQL
-      S3_BUCKET: "04c-cloud-05s03-ingesta-from-database"
+      S3_BUCKET: "04c-cloud-07s02-proyecto-postgresql"
 
   mongodb-ingesta:
     build:
@@ -39,5 +39,5 @@ services:
     environment:
       MONGODB_URI: "mongodb://mongo_host:27017/"  # Cambia a tu URI de MongoDB
       MONGODB_DATABASE: "universidad"              # Cambia a tu base de datos MongoDB
-      S3_BUCKET: "04c-cloud-05s03-ingesta-from-database"
+      S3_BUCKET: "04c-cloud-07s02-proyecto-mongodb"
 

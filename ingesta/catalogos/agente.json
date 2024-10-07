@@ -1,0 +1,5 @@
+[
+    {"Name": "id_persona", "Type": "int"},
+    {"Name": "direccion_oficina", "Type": "string"},
+    {"Name": "id_especialidad", "Type": "int"}
+]

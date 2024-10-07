@@ -1,0 +1,4 @@
+[
+    {"Name": "id_especialidad", "Type": "int"},
+    {"Name": "nombre_especialidad", "Type": "string"}
+]
