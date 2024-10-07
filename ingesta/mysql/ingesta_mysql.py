@@ -21,9 +21,16 @@ def export_to_csv(query, filename):
     cursor.execute(query)
     data = cursor.fetchall()
     columns = [desc[0] for desc in cursor.description]
+    
+    # Excluir el primer campo (encabezado)
+    if len(columns) > 0:
+        columns = columns[1:]  # Excluir el primer encabezado
+        data = [row[1:] for row in data]  # Excluir el primer campo de cada fila
+
     df = pd.DataFrame(data, columns=columns)
     df.to_csv(filename, index=False)
     print(f"Exported {filename}")
+
 
 # Consultas para cada tabla
 queries = {
@@ -43,8 +50,9 @@ s3 = boto3.client('s3')
 
 for table_name in queries.keys():
     ficheroUpload = f"{table_name}.csv"
-    s3.upload_file(ficheroUpload, nombreBucket, ficheroUpload)
-    print(f"Uploaded {ficheroUpload} to S3")
+    # Especificar la ruta en el bucket
+    s3.upload_file(ficheroUpload, nombreBucket, f"{table_name}/{ficheroUpload}")
+    print(f"Uploaded {ficheroUpload} to S3 under {table_name}/")
 
 # Cierre de la conexión
 cursor.close()
