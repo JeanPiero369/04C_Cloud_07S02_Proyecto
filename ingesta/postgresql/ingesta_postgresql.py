@@ -29,10 +29,8 @@ def export_to_csv(query, filename):
 
 # Consultas para cada tabla
 queries = {
-    'Persona': "SELECT * FROM Persona;",
-    'Cliente': "SELECT * FROM Cliente;",
-    'Especialidad': "SELECT * FROM Especialidad;",
-    'Agente': "SELECT * FROM Agente;"
+    'polizas': "SELECT * FROM polizas;",
+    'seguros': "SELECT * FROM seguros;"
 }
 
 # Exportar cada tabla a un archivo CSV

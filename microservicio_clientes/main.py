@@ -10,11 +10,11 @@ app = FastAPI()
 import os
 
 # Configuración de la base de datos
-host_name = os.getenv("DATABASE_HOST", "3.210.219.55")
-port_number = os.getenv("DATABASE_PORT", "8005")
+host_name = os.getenv("DATABASE_HOST", "34.235.169.4")
+port_number = os.getenv("DATABASE_PORT", "3306")
 user_name = os.getenv("DATABASE_USER", "root")
-password_db = os.getenv("DATABASE_PASSWORD", "utec")
-database_name = os.getenv("DATABASE_NAME", "Aseguradora")
+password_db = os.getenv("DATABASE_PASSWORD", "ubuntu")
+database_name = os.getenv("DATABASE_NAME", "Clientes")
 
 
 # Health check endpoint
