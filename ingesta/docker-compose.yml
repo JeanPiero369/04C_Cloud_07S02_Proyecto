@@ -9,7 +9,7 @@ services:
       - /home/ubuntu/.aws/credentials:/root/.aws/credentials  # Montar el archivo de credenciales
     environment:
       MYSQL_HOST: "34.235.169.4"   # Cambia a tu host de MySQL
-      MYSQL_PORT: "3306"           # Cambia al puerto de MySQL
+      MYSQL_PORT: "3307"           # Cambia al puerto de MySQL
       MYSQL_USER: "root"          # Cambia a tu usuario de MySQL
       MYSQL_PASSWORD: "ubuntu"      # Cambia a tu contraseña de MySQL
       MYSQL_DATABASE: "Clientes"  # Cambia a tu base de datos MySQL
