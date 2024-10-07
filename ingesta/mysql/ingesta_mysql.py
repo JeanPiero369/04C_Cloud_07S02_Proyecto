@@ -21,15 +21,12 @@ def export_to_csv(query, filename):
     cursor.execute(query)
     data = cursor.fetchall()
     columns = [desc[0] for desc in cursor.description]
-    
-    # Excluir el primer campo (encabezado)
-    if len(columns) > 0:
-        columns = columns[1:]  # Excluir el primer encabezado
-        data = [row[1:] for row in data]  # Excluir el primer campo de cada fila
 
+    # Convertir a DataFrame sin modificar los datos
     df = pd.DataFrame(data, columns=columns)
-    df.to_csv(filename, index=False)
+    df.to_csv(filename, index=False, header=False)  # No incluir encabezado
     print(f"Exported {filename}")
+
 
 
 # Consultas para cada tabla
