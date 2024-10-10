@@ -121,45 +121,45 @@ class CdkStack(Stack):
         target_group_produccion_8000 = elbv2.ApplicationTargetGroup(self, "TG Produccion 8000",
             vpc=vpc,
             target_type=elbv2.TargetType.INSTANCE,
+            port=8000,
             health_check=elbv2.HealthCheck(
-                port="8000",
                 path="/",  # Ajusta esto según tu aplicación
                 interval=Duration.seconds(30)
             ),
-            target_group_name="Proyecto - TG Produccion 8000"
+            target_group_name="Proyecto-TG-Produccion-8000"
         )
 
         target_group_produccion_8001 = elbv2.ApplicationTargetGroup(self, "TG Produccion 8001",
             vpc=vpc,
             target_type=elbv2.TargetType.INSTANCE,
+            port=8001,
             health_check=elbv2.HealthCheck(
-                port="8001",
                 path="/",  # Ajusta esto según tu aplicación
                 interval=Duration.seconds(30)
             ),
-            target_group_name="Proyecto - TG Produccion 8001"
+            target_group_name="Proyecto-TG-Produccion-8001"
         )
 
         target_group_produccion_8002 = elbv2.ApplicationTargetGroup(self, "TG Produccion 8002",
             vpc=vpc,
             target_type=elbv2.TargetType.INSTANCE,
+            port=8002,
             health_check=elbv2.HealthCheck(
-                port="8002",
                 path="/",  # Ajusta esto según tu aplicación
                 interval=Duration.seconds(30)
             ),
-            target_group_name="Proyecto - TG Produccion 8002"
+            target_group_name="Proyecto-TG-Produccion-8002"
         )
 
         target_group_produccion_8003 = elbv2.ApplicationTargetGroup(self, "TG Produccion 8003",
             vpc=vpc,
             target_type=elbv2.TargetType.INSTANCE,
+            port=8003,
             health_check=elbv2.HealthCheck(
-                port="8003",
                 path="/",  # Ajusta esto según tu aplicación
                 interval=Duration.seconds(30)
             ),
-            target_group_name="Proyecto - TG Produccion 8003"
+            target_group_name="Proyecto-TG-Produccion-8003"
         )
 
         # Asociar instancias al Target Group
@@ -173,7 +173,7 @@ class CdkStack(Stack):
             vpc=vpc,
             internet_facing=True,
             security_group=security_group_produccion,
-            load_balancer_name="Proyecto - LB Produccion" 
+            load_balancer_name="Proyecto-LB-Produccion" 
         )
 
         # Crear listeners para cada puerto
