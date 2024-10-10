@@ -5,7 +5,7 @@ from aws_cdk import (
     CfnOutput,
     CfnParameter,
     aws_elasticloadbalancingv2 as elbv2,
-    core as cdk,
+    Duration
 )
 from constructs import Construct
 
@@ -123,7 +123,7 @@ class CdkStack(Stack):
             health_check=elbv2.HealthCheck(
                 port="8000",
                 path="/",  # Ajusta esto según tu aplicación
-                interval=cdk.Duration.seconds(30)
+                interval=Duration.seconds(30)
             ),
             target_group_name="Proyecto - TG Produccion 8000"
         )
@@ -134,7 +134,7 @@ class CdkStack(Stack):
             health_check=elbv2.HealthCheck(
                 port="8001",
                 path="/",  # Ajusta esto según tu aplicación
-                interval=cdk.Duration.seconds(30)
+                interval=Duration.seconds(30)
             ),
             target_group_name="Proyecto - TG Produccion 8001"
         )
@@ -145,7 +145,7 @@ class CdkStack(Stack):
             health_check=elbv2.HealthCheck(
                 port="8002",
                 path="/",  # Ajusta esto según tu aplicación
-                interval=cdk.Duration.seconds(30)
+                interval=Duration.seconds(30)
             ),
             target_group_name="Proyecto - TG Produccion 8002"
         )
@@ -156,7 +156,7 @@ class CdkStack(Stack):
             health_check=elbv2.HealthCheck(
                 port="8003",
                 path="/",  # Ajusta esto según tu aplicación
-                interval=cdk.Duration.seconds(30)
+                interval=Duration.seconds(30)
             ),
             target_group_name="Proyecto - TG Produccion 8003"
         )
