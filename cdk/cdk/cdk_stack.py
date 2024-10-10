@@ -68,35 +68,37 @@ class CdkStack(Stack):
                 device_name="/dev/sda1",
                 volume=ec2.BlockDeviceVolume.ebs(20)
             )],
-            role=role
+            role=role,
         )
 
         ec2_produccion_01 = ec2.Instance(self, "MV Produccion 01",
             vpc=vpc,
             instance_name="Proyecto - MV Produccion 01",
             instance_type=ec2.InstanceType.of(ec2.InstanceClass.T2, ec2.InstanceSize.MICRO),
-            machine_image=ec2.MachineImage.generic_linux({"us-east-1a": ami_id.value_as_string}),
+            machine_image=ec2.MachineImage.generic_linux({"us-east-1": ami_id.value_as_string}),
             security_group=security_group_produccion,
             key_name="vockey",
             block_devices=[ec2.BlockDevice(
                 device_name="/dev/sda1",
                 volume=ec2.BlockDeviceVolume.ebs(20)
             )],
-            role=role
+            role=role,
+            availability_zone="us-east-1a" 
         )
 
         ec2_produccion_02 = ec2.Instance(self, "MV Produccion 02",
             vpc=vpc,
             instance_name="Proyecto - MV Produccion 02",
             instance_type=ec2.InstanceType.of(ec2.InstanceClass.T2, ec2.InstanceSize.MICRO),
-            machine_image=ec2.MachineImage.generic_linux({"us-east-1b": ami_id.value_as_string}),
+            machine_image=ec2.MachineImage.generic_linux({"us-east-1": ami_id.value_as_string}),
             security_group=security_group_produccion,
             key_name="vockey",
             block_devices=[ec2.BlockDevice(
                 device_name="/dev/sda1",
                 volume=ec2.BlockDeviceVolume.ebs(20)
             )],
-            role=role
+            role=role,
+            availability_zone="us-east-1b" 
         )
 
         ec2_ingesta = ec2.Instance(self, "MV Ingesta",
