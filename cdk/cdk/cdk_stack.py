@@ -121,6 +121,7 @@ class CdkStack(Stack):
         target_group_produccion_8000 = elbv2.ApplicationTargetGroup(self, "TG Produccion 8000",
             vpc=vpc,
             target_type=elbv2.TargetType.INSTANCE,
+            protocol=elbv2.ApplicationProtocol.HTTP,
             port=8000,
             health_check=elbv2.HealthCheck(
                 path="/",  # Ajusta esto según tu aplicación
@@ -132,6 +133,7 @@ class CdkStack(Stack):
         target_group_produccion_8001 = elbv2.ApplicationTargetGroup(self, "TG Produccion 8001",
             vpc=vpc,
             target_type=elbv2.TargetType.INSTANCE,
+            protocol=elbv2.ApplicationProtocol.HTTP,
             port=8001,
             health_check=elbv2.HealthCheck(
                 path="/",  # Ajusta esto según tu aplicación
@@ -143,6 +145,7 @@ class CdkStack(Stack):
         target_group_produccion_8002 = elbv2.ApplicationTargetGroup(self, "TG Produccion 8002",
             vpc=vpc,
             target_type=elbv2.TargetType.INSTANCE,
+            protocol=elbv2.ApplicationProtocol.HTTP,
             port=8002,
             health_check=elbv2.HealthCheck(
                 path="/",  # Ajusta esto según tu aplicación
@@ -154,6 +157,7 @@ class CdkStack(Stack):
         target_group_produccion_8003 = elbv2.ApplicationTargetGroup(self, "TG Produccion 8003",
             vpc=vpc,
             target_type=elbv2.TargetType.INSTANCE,
+            protocol=elbv2.ApplicationProtocol.HTTP,
             port=8003,
             health_check=elbv2.HealthCheck(
                 path="/",  # Ajusta esto según tu aplicación
