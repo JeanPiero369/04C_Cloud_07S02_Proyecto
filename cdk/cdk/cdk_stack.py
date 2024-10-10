@@ -162,10 +162,10 @@ class CdkStack(Stack):
         )
 
         # Asociar instancias al Target Group
-        target_group_produccion_8000.add_targets("Targets", targets=[ec2_produccion_01, ec2_produccion_02])
-        target_group_produccion_8001.add_targets("Targets", targets=[ec2_produccion_01, ec2_produccion_02])
-        target_group_produccion_8002.add_targets("Targets", targets=[ec2_produccion_01, ec2_produccion_02])
-        target_group_produccion_8003.add_targets("Targets", targets=[ec2_produccion_01, ec2_produccion_02])
+        target_group_produccion_8000.add_target("Targets", targets=[ec2_produccion_01, ec2_produccion_02])
+        target_group_produccion_8001.add_target("Targets", targets=[ec2_produccion_01, ec2_produccion_02])
+        target_group_produccion_8002.add_target("Targets", targets=[ec2_produccion_01, ec2_produccion_02])
+        target_group_produccion_8003.add_target("Targets", targets=[ec2_produccion_01, ec2_produccion_02])
 
 
         # Crear el Load Balancer
@@ -183,10 +183,10 @@ class CdkStack(Stack):
         listener_8003 = load_balancer.add_listener("Listener8003", port=8003, open=True)
 
         # Agregar los Target Groups a cada Listener
-        listener_8000.add_target_groups("TargetGroup8000",target_groups=[target_group_produccion_8000])
-        listener_8001.add_target_groups("TargetGroup8001",target_groups=[target_group_produccion_8001])
-        listener_8002.add_target_groups("TargetGroup8002",target_groups=[target_group_produccion_8002])
-        listener_8003.add_target_groups("TargetGroup8003",target_groups=[target_group_produccion_8003])
+        listener_8000.add_targets("TargetGroup8000",targets=[target_group_produccion_8000])
+        listener_8001.add_targets("TargetGroup8001",targets=[target_group_produccion_8001])
+        listener_8002.add_targets("TargetGroup8002",targets=[target_group_produccion_8002])
+        listener_8003.add_targets("TargetGroup8003",targets=[target_group_produccion_8003])
 
 
         ec2_bd_datos.add_user_data(
