@@ -15,11 +15,6 @@ class CdkStack(Stack):
         account_id = kwargs.get('env').account
 
         # Parameters
-        instance_name = CfnParameter(self, "InstanceName",
-            type="String",
-            default="MV Reemplazar",
-            description="Nombre de la instancia a crear"
-        )
 
         ami_id = CfnParameter(self, "AMI",
             type="String",
@@ -44,8 +39,9 @@ class CdkStack(Stack):
         role = iam.Role.from_role_arn(self, "ExistingRole", existing_role_arn)
 
         # EC2 Instance
-        ec2_instance = ec2.Instance(self, "EC2Instance",
+        ec2_bd_datos = ec2.Instance(self, "MV Base de datos",
             vpc=vpc,
+            instance_name="Proyecto - MV Base de datos",
             instance_type=ec2.InstanceType.of(ec2.InstanceClass.T2, ec2.InstanceSize.MICRO),
             machine_image=ec2.MachineImage.generic_linux({"us-east-1": ami_id.value_as_string}),
             security_group=security_group,
@@ -57,7 +53,49 @@ class CdkStack(Stack):
             role=role
         )
 
-        ec2_instance.add_user_data(
+        ec2_produccion_01 = ec2.Instance(self, "MV Produccion 01",
+            vpc=vpc,
+            instance_name="Proyecto - MV Produccion 01",
+            instance_type=ec2.InstanceType.of(ec2.InstanceClass.T2, ec2.InstanceSize.MICRO),
+            machine_image=ec2.MachineImage.generic_linux({"us-east-1": ami_id.value_as_string}),
+            security_group=security_group,
+            key_name="vockey",
+            block_devices=[ec2.BlockDevice(
+                device_name="/dev/sda1",
+                volume=ec2.BlockDeviceVolume.ebs(20)
+            )],
+            role=role
+        )
+
+        ec2_produccion_02 = ec2.Instance(self, "MV Produccion 02",
+            vpc=vpc,
+            instance_name="Proyecto - MV Produccion 02",
+            instance_type=ec2.InstanceType.of(ec2.InstanceClass.T2, ec2.InstanceSize.MICRO),
+            machine_image=ec2.MachineImage.generic_linux({"us-east-1": ami_id.value_as_string}),
+            security_group=security_group,
+            key_name="vockey",
+            block_devices=[ec2.BlockDevice(
+                device_name="/dev/sda1",
+                volume=ec2.BlockDeviceVolume.ebs(20)
+            )],
+            role=role
+        )
+
+        ec2_ingesta = ec2.Instance(self, "MV Ingesta",
+            vpc=vpc,
+            instance_name="Proyecto - MV Ingesta",
+            instance_type=ec2.InstanceType.of(ec2.InstanceClass.T2, ec2.InstanceSize.MICRO),
+            machine_image=ec2.MachineImage.generic_linux({"us-east-1": ami_id.value_as_string}),
+            security_group=security_group,
+            key_name="vockey",
+            block_devices=[ec2.BlockDevice(
+                device_name="/dev/sda1",
+                volume=ec2.BlockDeviceVolume.ebs(20)
+            )],
+            role=role
+        )
+
+        ec2_bd_datos.add_user_data(
             "#!/bin/bash",
             "cd /var/www/html/",
             "git clone https://github.com/utec-cc-2024-2-test/websimple.git",
@@ -68,20 +106,20 @@ class CdkStack(Stack):
         # Outputs
         CfnOutput(self, "InstanceId",
             description="ID de la instancia EC2",
-            value=ec2_instance.instance_id
+            value=ec2_bd_datos.instance_id
         )
 
         CfnOutput(self, "InstancePublicIP",
             description="IP publica de la instancia",
-            value=ec2_instance.instance_public_ip
+            value=ec2_bd_datos.instance_public_ip
         )
 
         CfnOutput(self, "websimpleURL",
             description="URL de websimple",
-            value=f"http://{ec2_instance.instance_public_ip}/websimple"
+            value=f"http://{ec2_bd_datos.instance_public_ip}/websimple"
         )
 
         CfnOutput(self, "webplantillaURL",
             description="URL de webplantilla",
-            value=f"http://{ec2_instance.instance_public_ip}/webplantilla"
+            value=f"http://{ec2_bd_datos.instance_public_ip}/webplantilla"
         )
