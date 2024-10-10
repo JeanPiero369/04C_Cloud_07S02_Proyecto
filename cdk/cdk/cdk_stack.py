@@ -5,6 +5,7 @@ from aws_cdk import (
     CfnOutput,
     CfnParameter,
     aws_elasticloadbalancingv2 as elbv2,
+    aws_elasticloadbalancingv2_targets as targets,
     Duration
 )
 from constructs import Construct
@@ -164,7 +165,7 @@ class CdkStack(Stack):
         # Asociar instancias al Target Group
         for target_group in {target_group_produccion_8000,target_group_produccion_8001,target_group_produccion_8002,target_group_produccion_8003}:
             for ec2_instance in {ec2_produccion_01,ec2_produccion_02}:
-                target_group.add_target(elbv2.InstanceTarget(ec2_instance.instance_id))
+                target_group.add_target(targets.InstanceTarget(ec2_instance))
 
 
         # Crear el Load Balancer
