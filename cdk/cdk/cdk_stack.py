@@ -28,6 +28,10 @@ class CdkStack(Stack):
         # Security Group
         vpc = ec2.Vpc.from_lookup(self, "VPC", is_default=True)
 
+        # Updated IAM Role ARN with new Account ID
+        existing_role_arn = f"arn:aws:iam::{account_id}:role/LabRole"
+        role = iam.Role.from_role_arn(self, "ExistingRole", existing_role_arn)
+
         security_group_produccion = ec2.SecurityGroup(self, "GS Produccion",
             vpc=vpc,
             security_group_name="Proyecto - GS Produccion",
@@ -54,9 +58,7 @@ class CdkStack(Stack):
         security_group_bd_datos.add_ingress_rule(ec2.Peer.any_ipv4(), ec2.Port.tcp(8001), "Allow Traffic on Port 8001")
         security_group_bd_datos.add_ingress_rule(ec2.Peer.any_ipv4(), ec2.Port.tcp(8002), "Allow Traffic on Port 8002")
 
-        # Updated IAM Role ARN with new Account ID
-        existing_role_arn = f"arn:aws:iam::{account_id}:role/LabRole"
-        role = iam.Role.from_role_arn(self, "ExistingRole", existing_role_arn)
+
 
         # EC2 Instance
         ec2_bd_datos = ec2.Instance(self, "MV Base de datos",
@@ -177,7 +179,8 @@ class CdkStack(Stack):
             vpc=vpc,
             internet_facing=True,
             security_group=security_group_produccion,
-            load_balancer_name="Proyecto-LB-Produccion" 
+            load_balancer_name="Proyecto-LB-Produccion",
+            role=role
         )
 
         # Crear listeners para cada puerto
