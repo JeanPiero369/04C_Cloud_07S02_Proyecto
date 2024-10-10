@@ -26,7 +26,7 @@ class CdkStack(Stack):
         # Security Group
         vpc = ec2.Vpc.from_lookup(self, "VPC", is_default=True)
 
-        security_group_produccion = ec2.SecurityGroup(self, "InstanceSecurityGroup",
+        security_group_produccion = ec2.SecurityGroup(self, "GS Produccion",
             vpc=vpc,
             security_group_name="Proyecto - GS Produccion",
             description="Permitir trafico SSH y HTTP desde cualquier lugar",
@@ -40,7 +40,7 @@ class CdkStack(Stack):
         security_group_produccion.add_ingress_rule(ec2.Peer.any_ipv4(), ec2.Port.tcp(8002), "Allow Traffic on Port 8002")
         security_group_produccion.add_ingress_rule(ec2.Peer.any_ipv4(), ec2.Port.tcp(8003), "Allow Traffic on Port 8003")
         
-        security_group_bd_datos = ec2.SecurityGroup(self, "InstanceSecurityGroup",
+        security_group_bd_datos = ec2.SecurityGroup(self, "GS Base de datos",
             vpc=vpc,
             security_group_name="Proyecto - GS Base de datos",
             description="Permitir trafico SSH y HTTP desde cualquier lugar",
@@ -114,7 +114,7 @@ class CdkStack(Stack):
         )
 
         # Crear un Target Group para las instancias de Producción
-        target_group_produccion_8000 = elbv2.ApplicationTargetGroup(self, "TargetGroup",
+        target_group_produccion_8000 = elbv2.ApplicationTargetGroup(self, "TG Produccion 8000",
             vpc=vpc,
             target_type=elbv2.TargetType.INSTANCE,
             health_check=elbv2.HealthCheck(
@@ -125,7 +125,7 @@ class CdkStack(Stack):
             target_group_name="Proyecto - TG Produccion 8000"
         )
 
-        target_group_produccion_8001 = elbv2.ApplicationTargetGroup(self, "TargetGroup",
+        target_group_produccion_8001 = elbv2.ApplicationTargetGroup(self, "TG Produccion 8001",
             vpc=vpc,
             target_type=elbv2.TargetType.INSTANCE,
             health_check=elbv2.HealthCheck(
@@ -136,7 +136,7 @@ class CdkStack(Stack):
             target_group_name="Proyecto - TG Produccion 8001"
         )
 
-        target_group_produccion_8002 = elbv2.ApplicationTargetGroup(self, "TargetGroup",
+        target_group_produccion_8002 = elbv2.ApplicationTargetGroup(self, "TG Produccion 8002",
             vpc=vpc,
             target_type=elbv2.TargetType.INSTANCE,
             health_check=elbv2.HealthCheck(
@@ -147,7 +147,7 @@ class CdkStack(Stack):
             target_group_name="Proyecto - TG Produccion 8002"
         )
 
-        target_group_produccion_8003 = elbv2.ApplicationTargetGroup(self, "TargetGroup",
+        target_group_produccion_8003 = elbv2.ApplicationTargetGroup(self, "TG Produccion 8003",
             vpc=vpc,
             target_type=elbv2.TargetType.INSTANCE,
             health_check=elbv2.HealthCheck(
@@ -166,7 +166,7 @@ class CdkStack(Stack):
 
 
         # Crear el Load Balancer
-        load_balancer = elbv2.ApplicationLoadBalancer(self, "LoadBalancer",
+        load_balancer = elbv2.ApplicationLoadBalancer(self, "LB Produccion",
             vpc=vpc,
             internet_facing=True,
             security_group=security_group_produccion,
