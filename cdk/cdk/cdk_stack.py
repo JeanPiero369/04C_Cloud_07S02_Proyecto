@@ -183,10 +183,10 @@ class CdkStack(Stack):
         listener_8003 = load_balancer.add_listener("Listener8003", port=8003, open=True,protocol=elbv2.ApplicationProtocol.HTTP)
 
         # Agregar los Target Groups a cada Listener
-        listener_8000.add_targets("TargetGroup8000",targets=[target_group_produccion_8000])
-        listener_8001.add_targets("TargetGroup8001",targets=[target_group_produccion_8001])
-        listener_8002.add_targets("TargetGroup8002",targets=[target_group_produccion_8002])
-        listener_8003.add_targets("TargetGroup8003",targets=[target_group_produccion_8003])
+        listener_8000.add_targets("TargetGroup8000", targets=[targets.InstanceTarget(ec2_produccion_01), targets.InstanceTarget(ec2_produccion_02)])
+        listener_8001.add_targets("TargetGroup8001", targets=[targets.InstanceTarget(ec2_produccion_01), targets.InstanceTarget(ec2_produccion_02)])
+        listener_8002.add_targets("TargetGroup8002", targets=[targets.InstanceTarget(ec2_produccion_01), targets.InstanceTarget(ec2_produccion_02)])
+        listener_8003.add_targets("TargetGroup8003", targets=[targets.InstanceTarget(ec2_produccion_01), targets.InstanceTarget(ec2_produccion_02)])
 
 
         ec2_bd_datos.add_user_data(
