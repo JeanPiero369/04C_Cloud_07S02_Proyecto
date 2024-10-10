@@ -28,7 +28,7 @@ class CdkStack(Stack):
 
         security_group_produccion = ec2.SecurityGroup(self, "InstanceSecurityGroup",
             vpc=vpc,
-            security_group_name="Proyecto - GS Produccion"
+            security_group_name="Proyecto - GS Produccion",
             description="Permitir trafico SSH y HTTP desde cualquier lugar",
             allow_all_outbound=True
         )
@@ -42,7 +42,7 @@ class CdkStack(Stack):
         
         security_group_bd_datos = ec2.SecurityGroup(self, "InstanceSecurityGroup",
             vpc=vpc,
-            security_group_name="Proyecto - GS Base de datos"
+            security_group_name="Proyecto - GS Base de datos",
             description="Permitir trafico SSH y HTTP desde cualquier lugar",
             allow_all_outbound=True
         )
