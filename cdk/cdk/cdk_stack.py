@@ -7,14 +7,12 @@ from aws_cdk import (
 )
 from constructs import Construct
 
-import os
-
-account_id = os.getenv("CDK_DEFAULT_ACCOUNT")
-
 class CdkStack(Stack):
 
     def __init__(self, scope: Construct, construct_id: str, **kwargs) -> None:
         super().__init__(scope, construct_id, **kwargs)
+
+        account_id = kwargs.get('env').account
 
         # Parameters
         instance_name = CfnParameter(self, "InstanceName",
