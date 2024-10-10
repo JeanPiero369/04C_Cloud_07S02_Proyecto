@@ -5,6 +5,7 @@ from aws_cdk import (
     CfnOutput,
     CfnParameter,
     aws_elasticloadbalancingv2 as elbv2,
+    core as cdk,
 )
 from constructs import Construct
 
