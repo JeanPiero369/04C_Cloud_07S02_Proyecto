@@ -177,10 +177,10 @@ class CdkStack(Stack):
         )
 
         # Crear listeners para cada puerto
-        listener_8000 = load_balancer.add_listener("Listener8000", port=8000, open=True)
-        listener_8001 = load_balancer.add_listener("Listener8001", port=8001, open=True)
-        listener_8002 = load_balancer.add_listener("Listener8002", port=8002, open=True)
-        listener_8003 = load_balancer.add_listener("Listener8003", port=8003, open=True)
+        listener_8000 = load_balancer.add_listener("Listener8000", port=8000, open=True,protocol=elbv2.ApplicationProtocol.HTTP)
+        listener_8001 = load_balancer.add_listener("Listener8001", port=8001, open=True,protocol=elbv2.ApplicationProtocol.HTTP)
+        listener_8002 = load_balancer.add_listener("Listener8002", port=8002, open=True,protocol=elbv2.ApplicationProtocol.HTTP)
+        listener_8003 = load_balancer.add_listener("Listener8003", port=8003, open=True,protocol=elbv2.ApplicationProtocol.HTTP)
 
         # Agregar los Target Groups a cada Listener
         listener_8000.add_targets("TargetGroup8000",targets=[target_group_produccion_8000])
