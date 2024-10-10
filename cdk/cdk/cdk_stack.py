@@ -179,8 +179,7 @@ class CdkStack(Stack):
             vpc=vpc,
             internet_facing=True,
             security_group=security_group_produccion,
-            load_balancer_name="Proyecto-LB-Produccion",
-            role=role
+            load_balancer_name="Proyecto-LB-Produccion"
         )
 
         # Crear listeners para cada puerto
