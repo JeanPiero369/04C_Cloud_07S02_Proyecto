@@ -162,10 +162,10 @@ class CdkStack(Stack):
         )
 
         # Asociar instancias al Target Group
-        target_group_produccion_8000.add_target("Targets", targets=[ec2_produccion_01, ec2_produccion_02])
-        target_group_produccion_8001.add_target("Targets", targets=[ec2_produccion_01, ec2_produccion_02])
-        target_group_produccion_8002.add_target("Targets", targets=[ec2_produccion_01, ec2_produccion_02])
-        target_group_produccion_8003.add_target("Targets", targets=[ec2_produccion_01, ec2_produccion_02])
+        target_group_produccion_8000.add_targets("Targets", targets=[ec2_produccion_01, ec2_produccion_02])
+        target_group_produccion_8001.add_targets("Targets", targets=[ec2_produccion_01, ec2_produccion_02])
+        target_group_produccion_8002.add_targets("Targets", targets=[ec2_produccion_01, ec2_produccion_02])
+        target_group_produccion_8003.add_targets("Targets", targets=[ec2_produccion_01, ec2_produccion_02])
 
 
         # Crear el Load Balancer
