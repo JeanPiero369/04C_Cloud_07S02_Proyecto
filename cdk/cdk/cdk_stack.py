@@ -180,6 +180,10 @@ class CdkStack(Stack):
             internet_facing=True,
             security_group=security_group_produccion,
             load_balancer_name="Proyecto-LB-Produccion"
+            vpc_subnets=ec2.SubnetSelection(
+                subnet_type=ec2.SubnetType.PUBLIC,
+                availability_zones=["us-east-1a", "us-east-1b"] 
+            )
         )
 
         # Crear listeners para cada puerto
