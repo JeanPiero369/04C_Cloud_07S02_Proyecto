@@ -87,12 +87,19 @@ def create_postgresql_tables():
         cursor = connection.cursor()
 
         # Obtener el nombre de la base de datos de las variables de entorno
-        database_name = os.environ.get('POSTGRES_DB', 'nueva_base_de_datos')  # Nombre predeterminado si no se proporciona
+        database_name = os.environ.get('POSTGRES_DB')  # Nombre predeterminado si no se proporciona
 
-        # Crear la base de datos si no existe
-        cursor.execute(f"CREATE DATABASE IF NOT EXISTS {database_name}")
-
+        # Verificar si la base de datos ya existe
+        cursor.execute(f"SELECT 1 FROM pg_database WHERE datname = {database_name}")
+        exists = cursor.fetchone()
+        
+        if not exists:
+            cursor.execute(f"CREATE DATABASE {database_name}")
+            print("Base de datos 'polizas' creada correctamente.")
+        else:
+            print("La base de datos 'polizas' ya existe.")
         # Cerrar la conexión inicial para conectarse a la nueva base de datos
+        
         cursor.close()
         connection.close()
 
