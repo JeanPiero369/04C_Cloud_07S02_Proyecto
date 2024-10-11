@@ -117,20 +117,24 @@ def load_data_seguros_postgresql():
 # ================== Cargar datos en MongoDB ==================
 def load_data_bienes_mongodb():
     try:
-        # Comando para copiar el archivo CSV al contenedor de MongoDB
-        copy_command = "docker cp ./data/generated_data/bienes_generated.csv mongo_c:/data/bienes_generated.csv"
-        
-        # Comando para importar el archivo CSV en la base de datos MongoDB
-        import_command = "docker exec -it mongo_c mongoimport --host localhost --port 27017 --db bienes --collection bienes --type csv --file /data/bienes_generated.csv --headerline"
+        # Conexión a la base de datos MongoDB
+        #  Obtener la URI de MongoDB y el nombre de la base de datos de las variables de entorno
+        mongo_host = os.environ.get("MONGODB_HOST")  # Cambia a tu host de MongoDB
+        mongo_port = os.environ.get("MONGODB_PORT")       # Cambia a tu puerto de MongoDB
+        mongo_db = os.environ.get("MONGODB_DATABASE")  # Cambia a tu base de datos MongoDB
 
-        # Ejecutar los comandos
-        copy_result = os.system(copy_command)
-        if copy_result != 0:
-            raise Exception("Error al copiar el archivo CSV al contenedor MongoDB.")
+        # Crear la URI de conexión
+        mongo_uri = f"mongodb://{mongo_host}:{mongo_port}/"
 
-        import_result = os.system(import_command)
-        if import_result != 0:
-            raise Exception("Error al importar el archivo CSV en MongoDB.")
+        client = MongoClient(mongo_uri)
+        db = client[mongo_db]  # Nombre de la base de datos
+        collection = db[mongo_db]  # Nombre de la colección
+
+        # Leer el archivo CSV en un DataFrame
+        df = pd.read_csv('./data/generated_data/bienes_generated.csv')
+
+        # Convertir el DataFrame a un diccionario y cargar los datos en MongoDB
+        collection.insert_many(df.to_dict(orient='records'))
 
         print("Datos cargados exitosamente en MongoDB.")
 
