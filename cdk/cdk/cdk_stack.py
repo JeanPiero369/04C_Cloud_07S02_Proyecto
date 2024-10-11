@@ -210,7 +210,7 @@ class CdkStack(Stack):
             "cd /home/ubuntu/",
             "git clone https://github.com/JeanPiero369/04C_Cloud_07S02_Proyecto.git",
             "cd ./04C_Cloud_07S02_Proyecto/data",
-            # f"echo 'DB_HOST={ip_privada}' > .env",  # Usar comillas simples
+            f"echo 'DB_HOST={ip_privada}' > .env",  # Usar comillas simples
             "docker compose up -d",
         )
 
