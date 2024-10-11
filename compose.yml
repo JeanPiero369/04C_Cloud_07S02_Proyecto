@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  clientes:
+    build:
+      context: ./Clientes
+    ports:
+      - 8000:8000
+    environment:
+      MYSQL_HOST: ${DB_HOST}   # Cambia a tu host de MySQL
+      MYSQL_PORT: "3306"           # Cambia al puerto de MySQL
+      MYSQL_USER: "root"          # Cambia a tu usuario de MySQL
+      MYSQL_PASSWORD: "ubuntu"      # Cambia a tu contraseña de MySQL
+      MYSQL_DATABASE: "Clientes"  # Cambia a tu base de datos MySQL

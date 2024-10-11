@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  mysql-ingesta:
+    build:
+      context: ./mysql
+    volumes:
+      - ./mysql/data:/app/data
+      - /home/ubuntu/.aws/credentials:/root/.aws/credentials  # Montar el archivo de credenciales
+    environment:
+      MYSQL_HOST: "IP privada"   # Cambia a tu host de MySQL
+      MYSQL_PORT: "3306"           # Cambia al puerto de MySQL
+      MYSQL_USER: "root"          # Cambia a tu usuario de MySQL
+      MYSQL_PASSWORD: "ubuntu"      # Cambia a tu contraseña de MySQL
+      MYSQL_DATABASE: "Clientes"  # Cambia a tu base de datos MySQL
+      S3_BUCKET: "04c-cloud-07s02-proyecto-mysql"
+
+  postgresql-ingesta:
+    build:
+      context: ./postgresql
+    volumes:
+      - ./postgresql/data:/app/data
+      - /home/ubuntu/.aws/credentials:/root/.aws/credentials  # Montar el archivo de credenciales
+  
+    environment:
+      POSTGRES_HOST: "IP privada"  # Cambia a tu host de PostgreSQL
+      POSTGRES_PORT: "5432"                # Cambia al puerto de PostgreSQL
+      POSTGRES_USER: "postgres"        # Cambia a tu usuario de PostgreSQL
+      POSTGRES_PASSWORD: "tp-20242"  # Cambia a tu contraseña de PostgreSQL
+      POSTGRES_DB: "polizas"         # Cambia a tu base de datos PostgreSQL
+      S3_BUCKET: "04c-cloud-07s02-proyecto-postgresql"
+
+  mongodb-ingesta:
+    build:
+      context: ./mongodb
+    volumes:
+      - ./mongodb/data:/app/data
+      - /home/ubuntu/.aws/credentials:/root/.aws/credentials  # Montar el archivo de credenciales
+    environment:
+      MONGODB_URI: "IP privada"  # Cambia a tu URI de MongoDB
+      MONGODB_DATABASE: "bienes"              # Cambia a tu base de datos MongoDB
+      S3_BUCKET: "04c-cloud-07s02-proyecto-mongodb"
+
