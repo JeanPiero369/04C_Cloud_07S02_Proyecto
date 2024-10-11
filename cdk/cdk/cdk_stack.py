@@ -209,10 +209,10 @@ class CdkStack(Stack):
 
         ec2_produccion_01.add_user_data(
             "#!/bin/bash",
-            f"echo 'DB_HOST={ip_privada}' > .env",  # Usar comillas simples
             "cd /home/ubuntu/",
             "git clone https://github.com/JeanPiero369/04C_Cloud_07S02_Proyecto.git",
             "cd ./04C_Cloud_07S02_Proyecto",
+            f"echo 'DB_HOST={ip_privada}' > .env",  # Usar comillas simples
             "docker compose up -d",
         )
 
