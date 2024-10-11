@@ -13,5 +13,5 @@ def main():
     #3. Cargar los datos
     cargar_todos_los_datos()
 
-if _name_ == "_main_":
+if __name__ == "_main_":
     main()
