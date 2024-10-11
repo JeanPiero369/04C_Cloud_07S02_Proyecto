@@ -13,7 +13,8 @@ def load_data_mysql():
             port=int(os.environ.get('MYSQL_PORT')),
             user=os.environ.get('MYSQL_USER'),  # Cambia esto a tu usuario de MySQL
             password=os.environ.get('MYSQL_PASSWORD'),  # Cambia esto a tu contraseña de MySQL
-            database=os.environ.get('MYSQL_DATABASE')
+            database=os.environ.get('MYSQL_DATABASE'),
+            allow_local_infile=True  
         )
         cursor = connection.cursor()
 

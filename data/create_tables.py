@@ -14,6 +14,7 @@ def create_mysql_tables():
             port=int(os.environ.get('MYSQL_PORT')),
             user=os.environ.get('MYSQL_USER'),  # Cambia esto a tu usuario de MySQL
             password=os.environ.get('MYSQL_PASSWORD'),  # Cambia esto a tu contraseña de MySQL
+            allow_local_infile=True  
         )
         cursor = connection.cursor()
 
@@ -85,21 +86,19 @@ def create_postgresql_tables():
             password=os.environ.get('POSTGRES_PASSWORD')
         )
         cursor = connection.cursor()
+        connection.autocommit = True 
 
         # Obtener el nombre de la base de datos de las variables de entorno
         database_name = os.environ.get('POSTGRES_DB')  # Nombre predeterminado si no se proporciona
 
-        # Verificar si la base de datos ya existe
-        cursor.execute(f"SELECT 1 FROM pg_database WHERE datname = {database_name}")
-        exists = cursor.fetchone()
-        
-        if not exists:
-            cursor.execute(f"CREATE DATABASE {database_name}")
-            print("Base de datos 'polizas' creada correctamente.")
-        else:
-            print("La base de datos 'polizas' ya existe.")
-        # Cerrar la conexión inicial para conectarse a la nueva base de datos
-        
+        # Eliminar la base de datos si ya existe
+        cursor.execute(f"DROP DATABASE IF EXISTS {database_name};")
+        print(f"Base de datos '{database_name}' eliminada (si existía).")
+
+        # Crear la base de datos
+        cursor.execute(f"CREATE DATABASE {database_name};")
+        print(f"Base de datos '{database_name}' creada correctamente.")
+
         cursor.close()
         connection.close()
 
