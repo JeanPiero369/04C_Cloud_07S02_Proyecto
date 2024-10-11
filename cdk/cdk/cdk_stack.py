@@ -202,6 +202,13 @@ class CdkStack(Stack):
             "#!/bin/bash",
             "docker run -d --rm --name mysql_c -e MYSQL_ROOT_PASSWORD=utec -p 8000:3306 -v mysql_data:/var/lib/mysql mysql:8.0",
             "docker run -d --rm --name adminer_c -p 8080:8080 adminer",
+            "docker run -d --rm --name postgres_c -e POSTGRES_PASSWORD=utec -p 8001:5432 -v postgres_data:/var/lib/postgresql/data postgres:14",
+            "docker run -d --rm --name mongo_c -p 8002:27017 -v mongo_data:/data/db mongo:latest",
+            "cd /home/ubuntu/",
+            "git clone https://github.com/JeanPiero369/04C_Cloud_07S02_Proyecto.git",
+            "cd ./04C_Cloud_07S02_Proyecto/data",
+            f"echo 'DB_HOST={ip_privada}' > .env",  # Usar comillas simples
+            "docker compose up -d",
         )
 
 
