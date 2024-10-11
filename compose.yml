@@ -10,5 +10,5 @@ services:
       MYSQL_HOST: "44.202.151.19"   # Cambia a tu host de MySQL
       MYSQL_PORT: "8000"           # Cambia al puerto de MySQL
       MYSQL_USER: "root"          # Cambia a tu usuario de MySQL
-      MYSQL_PASSWORD: "ubuntu"      # Cambia a tu contraseña de MySQL
+      MYSQL_PASSWORD: "utec"      # Cambia a tu contraseña de MySQL
       MYSQL_DATABASE: "Clientes"  # Cambia a tu base de datos MySQL
