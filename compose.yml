@@ -7,7 +7,7 @@ services:
     ports:
       - 8000:8000
     environment:
-      MYSQL_HOST: "172.31.85.143"   # Cambia a tu host de MySQL
+      MYSQL_HOST: ${DB_HOST}   # Cambia a tu host de MySQL
       MYSQL_PORT: "8000"           # Cambia al puerto de MySQL
       MYSQL_USER: "root"          # Cambia a tu usuario de MySQL
       MYSQL_PASSWORD: "ubuntu"      # Cambia a tu contraseña de MySQL
