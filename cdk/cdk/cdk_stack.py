@@ -53,10 +53,10 @@ class CdkStack(Stack):
             allow_all_outbound=True
         )
 
-        security_group_bd_datos.add_ingress_rule(ec2.Peer.security_group(security_group_produccion), ec2.Port.tcp(22), "Allow SSH")
-        security_group_bd_datos.add_ingress_rule(ec2.Peer.security_group(security_group_produccion), ec2.Port.tcp(8000), "Allow Traffic on Port 8000")
-        security_group_bd_datos.add_ingress_rule(ec2.Peer.security_group(security_group_produccion), ec2.Port.tcp(8001), "Allow Traffic on Port 8001")
-        security_group_bd_datos.add_ingress_rule(ec2.Peer.security_group(security_group_produccion), ec2.Port.tcp(8002), "Allow Traffic on Port 8002")
+        security_group_bd_datos.add_ingress_rule(ec2.Peer.security_group_id(security_group_produccion.security_group_id), ec2.Port.tcp(22), "Allow SSH")
+        security_group_bd_datos.add_ingress_rule(ec2.Peer.security_group_id(security_group_produccion.security_group_id), ec2.Port.tcp(8000), "Allow Traffic on Port 8000")
+        security_group_bd_datos.add_ingress_rule(ec2.Peer.security_group_id(security_group_produccion.security_group_id), ec2.Port.tcp(8001), "Allow Traffic on Port 8001")
+        security_group_bd_datos.add_ingress_rule(ec2.Peer.security_group_id(security_group_produccion.security_group_id), ec2.Port.tcp(8002), "Allow Traffic on Port 8002")
 
         # EC2 Instance
         ec2_bd_datos = ec2.Instance(self, "MV Base de datos",
