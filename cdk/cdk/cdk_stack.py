@@ -199,6 +199,9 @@ class CdkStack(Stack):
         listener_8002.add_target_groups("TargetGroup8002", target_groups=[target_group_produccion_8002])
         listener_8003.add_target_groups("TargetGroup8003", target_groups=[target_group_produccion_8003])
         
+        ip_privada = ec2_bd_datos.instance_private_ip
+        
+        
         ec2_bd_datos.add_user_data(
             "#!/bin/bash",
             "docker run -d --rm --name mysql_c -e MYSQL_ROOT_PASSWORD=utec -p 8000:3306 -v mysql_data:/var/lib/mysql mysql:8.0",
@@ -211,9 +214,6 @@ class CdkStack(Stack):
             f"echo 'DB_HOST={ip_privada}' > .env",  # Usar comillas simples
             "docker compose up -d",
         )
-
-
-        ip_privada = ec2_bd_datos.instance_private_ip
 
         ec2_produccion_01.add_user_data(
             "#!/bin/bash",
