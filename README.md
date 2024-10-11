@@ -102,7 +102,7 @@ git clone https://github.com/Ianskev/TP-CC-GRUPO4.git
 ```
 Ingresamos a la carpeta de git
 ```bash
-cd TP-CC-GRUPO4/
+cd TP-CC-GRUPO4/cdk
 ```
 Actualizamos el bootstrap
 ```bash
