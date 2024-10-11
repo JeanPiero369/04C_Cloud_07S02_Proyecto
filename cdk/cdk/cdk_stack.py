@@ -224,10 +224,10 @@ class CdkStack(Stack):
         )
 
         # Outputs
-        CfnOutput(self, "LoadBalancerDNS",
-            description="DNS del Load Balancer",
-            value=load_balancer.load_balancer_dns_name
-        )
+        # CfnOutput(self, "LoadBalancerDNS",
+        #     description="DNS del Load Balancer",
+        #     value=load_balancer.load_balancer_dns_name
+        # )
 
         CfnOutput(self, "Base de datos - adminer",
             description="Adminer",
