@@ -8,7 +8,7 @@ services:
       - ./mysql/data:/app/data
       - /home/ubuntu/.aws/credentials:/root/.aws/credentials  # Montar el archivo de credenciales
     environment:
-      MYSQL_HOST: ${DB_HOST}   # Cambia a tu host de MySQL
+      MYSQL_HOST: "54.175.161.133"   # Cambia a tu host de MySQL
       MYSQL_PORT: "8000"           # Cambia al puerto de MySQL
       MYSQL_USER: "root"          # Cambia a tu usuario de MySQL
       MYSQL_PASSWORD: "utec"      # Cambia a tu contraseña de MySQL
@@ -23,7 +23,7 @@ services:
       - /home/ubuntu/.aws/credentials:/root/.aws/credentials  # Montar el archivo de credenciales
   
     environment:
-      POSTGRES_HOST: ${DB_HOST}  # Cambia a tu host de PostgreSQL
+      POSTGRES_HOST: "54.175.161.133"  # Cambia a tu host de PostgreSQL
       POSTGRES_PORT: "8001"                # Cambia al puerto de PostgreSQL
       POSTGRES_USER: "postgres"        # Cambia a tu usuario de PostgreSQL
       POSTGRES_PASSWORD: "utec"  # Cambia a tu contraseña de PostgreSQL
@@ -37,7 +37,7 @@ services:
       - ./mongodb/data:/app/data
       - /home/ubuntu/.aws/credentials:/root/.aws/credentials  # Montar el archivo de credenciales
     environment:
-      MONGODB_HOST: ${DB_HOST}   # Cambia a tu URI de MongoDB
+      MONGODB_HOST: "54.175.161.133"   # Cambia a tu URI de MongoDB
       MONGODB_PORT: "8002"  # Cambia a tu URI de MongoDB
       MONGODB_DATABASE: "bienes"              # Cambia a tu base de datos MongoDB
 
