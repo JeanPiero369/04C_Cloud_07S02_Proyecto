@@ -10,24 +10,29 @@ import java.math.BigDecimal;
 
 @Entity
 @Data
+@Table(name="seguros")
 public class Seguro {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long idSeguro;
+    private Long id;
 
     @NotNull
+    @Column(name = "nombreseguro")
     private String nombreSeguro;
 
+    @Column(name = "descripcion")
     private String descripcion;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "tiposeguro")
     private TipoSeguros tipoSeguro;
 
     @ManyToOne
-    @JoinColumn(name = "poliza_id", nullable = true)
+    @JoinColumn(name = "idpoliza", nullable = true)
     @JsonBackReference
     private Poliza poliza;
 
     @NotNull
+    @Column(name = "monto")
     private BigDecimal monto;
 }

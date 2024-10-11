@@ -1,17 +1,20 @@
 import os
-import pymongo
+from pymongo import MongoClient
 import boto3
 import json
 
-# Configuración de la base de datos MongoDB desde variables de entorno
-mongo_config = {
-    'host': os.environ.get('MONGO_URI'),  # Cambia con la IP y el puerto de tu servidor MongoDB
-    'database': os.environ.get('MONGO_DATABASE')          # Cambia con el nombre de tu base de datos
-}
-
 # Conexión a la base de datos MongoDB
-client = pymongo.MongoClient(mongo_config['host'])
-db = client[mongo_config['database']]
+#  Obtener la URI de MongoDB y el nombre de la base de datos de las variables de entorno
+mongo_host = os.environ.get("MONGODB_HOST")  # Cambia a tu host de MongoDB
+mongo_port = os.environ.get("MONGODB_PORT")       # Cambia a tu puerto de MongoDB
+mongo_db = os.environ.get("MONGODB_DATABASE")  # Cambia a tu base de datos MongoDB
+
+# Crear la URI de conexión
+mongo_uri = f"mongodb://{mongo_host}:{mongo_port}/"
+
+client = MongoClient(mongo_uri)
+db = client[mongo_db]  # Nombre de la base de datos
+collection = db[mongo_db]
 
 # Obtener todas las colecciones en la base de datos
 collections = db.list_collection_names()

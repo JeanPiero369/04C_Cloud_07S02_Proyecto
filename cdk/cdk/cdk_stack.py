@@ -164,7 +164,7 @@ class CdkStack(Stack):
             protocol=elbv2.ApplicationProtocol.HTTP,
             port=8003,
             health_check=elbv2.HealthCheck(
-                path="/",  # Ajusta esto según tu aplicación
+                path="/api/check_api",  # Ajusta esto según tu aplicación
                 interval=Duration.seconds(30)
             ),
             target_group_name="Proyecto-TG-Produccion-8003"
@@ -203,6 +203,7 @@ class CdkStack(Stack):
 
         ec2_ingesta.node.add_dependency(ec2_bd_datos)  # La ingesta depende de la base de datos
         ec2_produccion_01.node.add_dependency(ec2_ingesta)
+        ec2_produccion_02.node.add_dependency(ec2_ingesta)
 
         ec2_bd_datos.add_user_data(
             "#!/bin/bash",
@@ -222,6 +223,15 @@ class CdkStack(Stack):
         )
 
         ec2_produccion_01.add_user_data(
+            "#!/bin/bash",
+            "cd /home/ubuntu/",
+            "git clone https://github.com/JeanPiero369/04C_Cloud_07S02_Proyecto.git",
+            "cd ./04C_Cloud_07S02_Proyecto",
+            f"echo 'DB_HOST={ip_privada}' > .env",  # Usar comillas simples
+            "docker compose up -d",
+        )
+
+        ec2_produccion_02.add_user_data(
             "#!/bin/bash",
             "cd /home/ubuntu/",
             "git clone https://github.com/JeanPiero369/04C_Cloud_07S02_Proyecto.git",

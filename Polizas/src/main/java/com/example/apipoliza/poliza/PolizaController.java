@@ -1,5 +1,6 @@
 package com.example.apipoliza.poliza;
 
+import com.example.apipoliza.seguro.Seguro;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -37,9 +38,14 @@ public class PolizaController {
 
     // Crear una nueva póliza
     @PostMapping
-    public ResponseEntity<Poliza> createPoliza(@Valid @RequestBody Poliza poliza) {
+    public ResponseEntity<String> createPoliza(@Valid @RequestBody Poliza poliza) {
+        List<Poliza> existingPolizaList = polizaService.getPolizasByCliente(poliza.getIdCliente());
+        if (!existingPolizaList.isEmpty()) {
+            return new ResponseEntity<>("El cliente ya tiene una póliza existente. No se puede crear otra.", HttpStatus.BAD_REQUEST);
+        }
+
         Poliza newPoliza = polizaService.savePoliza(poliza);
-        return new ResponseEntity<>(newPoliza, HttpStatus.CREATED);
+        return new ResponseEntity<>("Poliza creada correctamente.", HttpStatus.CREATED);
     }
 
     // Actualizar una póliza existente
@@ -54,8 +60,12 @@ public class PolizaController {
             existingPoliza.setFechaFin(polizaDetails.getFechaFin());
             existingPoliza.setPrima(polizaDetails.getPrima());
 
-            // Si quieres reemplazar la lista de seguros:
-            existingPoliza.setSeguros(polizaDetails.getSeguros());
+            if (polizaDetails.getSeguros() != null) {
+                for (Seguro seguro : polizaDetails.getSeguros()) {
+                    seguro.setPoliza(existingPoliza); // Vincula cada seguro a la póliza actualizada
+                }
+                existingPoliza.setSeguros(polizaDetails.getSeguros());
+            }
 
             Poliza updatedPoliza = polizaService.savePoliza(existingPoliza);
             return new ResponseEntity<>(updatedPoliza, HttpStatus.OK);

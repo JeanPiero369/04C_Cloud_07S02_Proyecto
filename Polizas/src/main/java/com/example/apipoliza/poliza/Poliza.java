@@ -1,7 +1,6 @@
 package com.example.apipoliza.poliza;
 
 import com.example.apipoliza.seguro.Seguro;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
@@ -13,28 +12,33 @@ import java.util.List;
 
 @Entity
 @Data
+@Table(name="polizas")
 public class Poliza {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @NotNull
-    private Long idCliente;
+    @Column(name = "idcliente")
+    private Long idCliente; // Asegúrate de que solo es un identificador y no una relación a otra entidad
 
     @NotNull
+    @Column(name = "idagente")
     private Long idAgente;
 
     @OneToMany(mappedBy = "poliza", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference
     private List<Seguro> seguros;
 
     @NotNull
+    @Column(name = "fechainicio")
     private LocalDate fechaInicio;
 
     @NotNull
+    @Column(name = "fechafin")
     private LocalDate fechaFin;
 
     @NotNull
     @Positive
+    @Column(name = "prima")
     private BigDecimal prima;
 }

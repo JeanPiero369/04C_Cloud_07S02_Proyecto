@@ -32,7 +32,7 @@ public class PolizaService {
         polizaRepository.deleteById(id);
     }
 
-    // Obtener pólizas por id_cliente (consulta personalizada)
+    // Obtener pólizas por idCliente (consulta personalizada)
     public List<Poliza> getPolizasByCliente(Long idCliente) {
         return polizaRepository.findByIdCliente(idCliente);
     }
