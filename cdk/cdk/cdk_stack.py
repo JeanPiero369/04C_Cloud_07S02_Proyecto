@@ -21,7 +21,7 @@ class CdkStack(Stack):
 
         ami_id = CfnParameter(self, "AMI",
             type="String",
-            default="ami-0aa28dab1f2852040",
+            default="ami-061eaf73cf9ce7d78",
             description="ID de AMI"
         )
 
@@ -53,7 +53,8 @@ class CdkStack(Stack):
             allow_all_outbound=True
         )
 
-        security_group_bd_datos.add_ingress_rule(ec2.Peer.security_group_id(security_group_produccion.security_group_id), ec2.Port.tcp(22), "Allow SSH")
+        security_group_bd_datos.add_ingress_rule(ec2.Peer.any_ipv4(), ec2.Port.tcp(22), "Allow SSH")
+        security_group_bd_datos.add_ingress_rule(ec2.Peer.any_ipv4(), ec2.Port.tcp(8080), "Allow Traffic on Port 8000")
         security_group_bd_datos.add_ingress_rule(ec2.Peer.security_group_id(security_group_produccion.security_group_id), ec2.Port.tcp(8000), "Allow Traffic on Port 8000")
         security_group_bd_datos.add_ingress_rule(ec2.Peer.security_group_id(security_group_produccion.security_group_id), ec2.Port.tcp(8001), "Allow Traffic on Port 8001")
         security_group_bd_datos.add_ingress_rule(ec2.Peer.security_group_id(security_group_produccion.security_group_id), ec2.Port.tcp(8002), "Allow Traffic on Port 8002")
