@@ -23,10 +23,13 @@ s3 = boto3.client('s3')
 # Consulta de todos los documentos de la colección
 data = list(collection.find())  # Consulta todos los documentos de la colección
 
-# Guardar los datos en un archivo JSON
+# Guardar los datos en un archivo JSON, con un documento por línea
 json_filename = f"{mongo_db}.json"
 with open(json_filename, 'w') as json_file:
-    json.dump(data, json_file, default=str)  # Se utiliza default=str para convertir tipos no serializables a string
+    for idx, document in enumerate(data):
+        if idx == 0:  # Omitir el primer documento
+            continue
+        json_file.write(json.dumps(document, default=str) + "\n")  # Escribe cada documento como una línea JSON
 
 # Subir el archivo JSON a S3
 s3.upload_file(json_filename, nombreBucket, f"{mongo_db}/{json_filename}")
