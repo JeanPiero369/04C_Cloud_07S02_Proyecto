@@ -1,6 +1,9 @@
 # Usa una imagen base de Python
 FROM python:3-slim
 
+# Instalar dependencias del sistema necesarias para la construcción
+RUN apt-get update && apt-get install -y build-essential python3-dev gcc
+
 # Establece el directorio de trabajo dentro del contenedor
 WORKDIR /programas/api-aseguradora
 
