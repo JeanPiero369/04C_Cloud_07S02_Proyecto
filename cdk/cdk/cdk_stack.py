@@ -200,6 +200,9 @@ class CdkStack(Stack):
         
         ip_privada = ec2_bd_datos.instance_private_ip
 
+        ec2_ingesta.node.add_dependency(ec2_bd_datos)  # La ingesta depende de la base de datos
+        ec2_produccion_01.node.add_dependency(ec2_ingesta)
+
         ec2_bd_datos.add_user_data(
             "#!/bin/bash",
             "docker run -d --rm --name mysql_c -e MYSQL_ROOT_PASSWORD=utec -p 8000:3306 -v mysql_data:/var/lib/mysql mysql:8.0",
