@@ -200,8 +200,8 @@ class CdkStack(Stack):
         
         ip_privada = ec2_bd_datos.instance_private_ip
         
-        ec2_produccion_01.node.add_dependency(ec2_bd_datos)
-        ec2_produccion_02.node.add_dependency(ec2_bd_datos)
+        # ec2_produccion_01.node.add_dependency(ec2_bd_datos)
+        # ec2_produccion_02.node.add_dependency(ec2_bd_datos)
 
         ec2_bd_datos.add_user_data(
             "#!/bin/bash",
@@ -216,14 +216,14 @@ class CdkStack(Stack):
             "docker compose up -d",
         )
 
-        ec2_produccion_01.add_user_data(
-            "#!/bin/bash",
-            "cd /home/ubuntu/",
-            "git clone https://github.com/JeanPiero369/04C_Cloud_07S02_Proyecto.git",
-            "cd ./04C_Cloud_07S02_Proyecto",
-            f"echo 'DB_HOST={ip_privada}' > .env",  # Usar comillas simples
-            "docker compose up -d",
-        )
+        # ec2_produccion_01.add_user_data(
+        #     "#!/bin/bash",
+        #     "cd /home/ubuntu/",
+        #     "git clone https://github.com/JeanPiero369/04C_Cloud_07S02_Proyecto.git",
+        #     "cd ./04C_Cloud_07S02_Proyecto",
+        #     f"echo 'DB_HOST={ip_privada}' > .env",  # Usar comillas simples
+        #     "docker compose up -d",
+        # )
 
         # Outputs
         # CfnOutput(self, "LoadBalancerDNS",
