@@ -3,7 +3,7 @@ version: '3.8'
 services:
   data:
     build:
-      context: ./data
+      context: .
     environment:
       MYSQL_HOST: "172.31.82.8"   # Cambia a tu host de MySQL
       MYSQL_PORT: "8000"           # Cambia al puerto de MySQL
