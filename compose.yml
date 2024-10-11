@@ -5,10 +5,46 @@ services:
     build:
       context: ./Clientes
     ports:
-      - 8000:8000
+      - 8001:8000
     environment:
       MYSQL_HOST: ${DB_HOST}   # Cambia a tu host de MySQL
       MYSQL_PORT: "8000"           # Cambia al puerto de MySQL
       MYSQL_USER: "root"          # Cambia a tu usuario de MySQL
       MYSQL_PASSWORD: "utec"      # Cambia a tu contraseña de MySQL
       MYSQL_DATABASE: "Clientes"  # Cambia a tu base de datos MySQL
+  
+  bienes:
+    build:
+      context: ./Bienes
+    ports:
+      - "8003:3000"
+    environment:
+      - MONGO_URL=mongodb://${DB_HOST}:8002/bienes
+    restart: always
+
+  polizas:
+    build:
+      context: ./Polizas
+    ports:
+      - "8002:8080"
+    environment:
+      - SPRING_DATASOURCE_URL=${DB_HOST}:8001/polizas
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=utec
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+    restart: always
+
+  orchestrator:
+    build:
+      context: ./Orchestrator
+    ports:
+      - "8000:8000"
+    environment:
+      - CLIENTE_API_URL=http://clientes:8001
+      - BIENES_API_URL=http://bienes:8003
+      - POLIZA_API_URL=http://polizas:8002
+    restart: always
+    depends_on:
+      - clientes
+      - bienes
+      - polizas

@@ -1,0 +1,130 @@
+{
+	"info": {
+		"_postman_id": "e12b34a5-6789-43b0-a456-8aef567123e4",
+		"name": "API Seguros de Bienes",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get All Seguros",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/seguros",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"seguros"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Seguro by ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/seguros/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"seguros",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Seguro de Bienes",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"nombreSeguro\": \"Seguro de Autos\",\n  \"descripcion\": \"Cobertura total para vehículos\",\n  \"monto\": 50000\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/seguros",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"seguros"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Seguro de Bienes",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"nombreSeguro\": \"Seguro de Laptops\",\n  \"descripcion\": \"Cobertura contra daños y robos\",\n  \"monto\": 30000\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/seguros/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"seguros",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Seguro de Bienes",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/seguros/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"seguros",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

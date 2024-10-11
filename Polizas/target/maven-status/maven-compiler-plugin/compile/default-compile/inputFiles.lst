@@ -1,0 +1,12 @@
+/home/ubuntu/TP-CC-GRUPO4/Polizas/src/main/java/com/example/apipoliza/ApiPolizaApplication.java
+/home/ubuntu/TP-CC-GRUPO4/Polizas/src/main/java/com/example/apipoliza/Hello.java
+/home/ubuntu/TP-CC-GRUPO4/Polizas/src/main/java/com/example/apipoliza/SwaggerConfig.java
+/home/ubuntu/TP-CC-GRUPO4/Polizas/src/main/java/com/example/apipoliza/poliza/Poliza.java
+/home/ubuntu/TP-CC-GRUPO4/Polizas/src/main/java/com/example/apipoliza/poliza/PolizaController.java
+/home/ubuntu/TP-CC-GRUPO4/Polizas/src/main/java/com/example/apipoliza/poliza/PolizaRepository.java
+/home/ubuntu/TP-CC-GRUPO4/Polizas/src/main/java/com/example/apipoliza/poliza/PolizaService.java
+/home/ubuntu/TP-CC-GRUPO4/Polizas/src/main/java/com/example/apipoliza/seguro/Seguro.java
+/home/ubuntu/TP-CC-GRUPO4/Polizas/src/main/java/com/example/apipoliza/seguro/SeguroController.java
+/home/ubuntu/TP-CC-GRUPO4/Polizas/src/main/java/com/example/apipoliza/seguro/SeguroRepository.java
+/home/ubuntu/TP-CC-GRUPO4/Polizas/src/main/java/com/example/apipoliza/seguro/SeguroService.java
+/home/ubuntu/TP-CC-GRUPO4/Polizas/src/main/java/com/example/apipoliza/seguro/TipoSeguros.java
