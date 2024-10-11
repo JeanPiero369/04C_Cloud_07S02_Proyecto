@@ -119,84 +119,84 @@ class CdkStack(Stack):
             role=role
         )
 
-        # # Crear un Target Group para las instancias de Producción
-        # target_group_produccion_8000 = elbv2.ApplicationTargetGroup(self, "TG Produccion 8000",
-        #     vpc=vpc,
-        #     target_type=elbv2.TargetType.INSTANCE,
-        #     protocol=elbv2.ApplicationProtocol.HTTP,
-        #     port=8000,
-        #     health_check=elbv2.HealthCheck(
-        #         path="/",  # Ajusta esto según tu aplicación
-        #         interval=Duration.seconds(30)
-        #     ),
-        #     target_group_name="Proyecto-TG-Produccion-8000"
-        # )
+        # Crear un Target Group para las instancias de Producción
+        target_group_produccion_8000 = elbv2.ApplicationTargetGroup(self, "TG Produccion 8000",
+            vpc=vpc,
+            target_type=elbv2.TargetType.INSTANCE,
+            protocol=elbv2.ApplicationProtocol.HTTP,
+            port=8000,
+            health_check=elbv2.HealthCheck(
+                path="/",  # Ajusta esto según tu aplicación
+                interval=Duration.seconds(30)
+            ),
+            target_group_name="Proyecto-TG-Produccion-8000"
+        )
 
-        # target_group_produccion_8001 = elbv2.ApplicationTargetGroup(self, "TG Produccion 8001",
-        #     vpc=vpc,
-        #     target_type=elbv2.TargetType.INSTANCE,
-        #     protocol=elbv2.ApplicationProtocol.HTTP,
-        #     port=8001,
-        #     health_check=elbv2.HealthCheck(
-        #         path="/",  # Ajusta esto según tu aplicación
-        #         interval=Duration.seconds(30)
-        #     ),
-        #     target_group_name="Proyecto-TG-Produccion-8001"
-        # )
+        target_group_produccion_8001 = elbv2.ApplicationTargetGroup(self, "TG Produccion 8001",
+            vpc=vpc,
+            target_type=elbv2.TargetType.INSTANCE,
+            protocol=elbv2.ApplicationProtocol.HTTP,
+            port=8001,
+            health_check=elbv2.HealthCheck(
+                path="/",  # Ajusta esto según tu aplicación
+                interval=Duration.seconds(30)
+            ),
+            target_group_name="Proyecto-TG-Produccion-8001"
+        )
 
-        # target_group_produccion_8002 = elbv2.ApplicationTargetGroup(self, "TG Produccion 8002",
-        #     vpc=vpc,
-        #     target_type=elbv2.TargetType.INSTANCE,
-        #     protocol=elbv2.ApplicationProtocol.HTTP,
-        #     port=8002,
-        #     health_check=elbv2.HealthCheck(
-        #         path="/",  # Ajusta esto según tu aplicación
-        #         interval=Duration.seconds(30)
-        #     ),
-        #     target_group_name="Proyecto-TG-Produccion-8002"
-        # )
+        target_group_produccion_8002 = elbv2.ApplicationTargetGroup(self, "TG Produccion 8002",
+            vpc=vpc,
+            target_type=elbv2.TargetType.INSTANCE,
+            protocol=elbv2.ApplicationProtocol.HTTP,
+            port=8002,
+            health_check=elbv2.HealthCheck(
+                path="/",  # Ajusta esto según tu aplicación
+                interval=Duration.seconds(30)
+            ),
+            target_group_name="Proyecto-TG-Produccion-8002"
+        )
 
-        # target_group_produccion_8003 = elbv2.ApplicationTargetGroup(self, "TG Produccion 8003",
-        #     vpc=vpc,
-        #     target_type=elbv2.TargetType.INSTANCE,
-        #     protocol=elbv2.ApplicationProtocol.HTTP,
-        #     port=8003,
-        #     health_check=elbv2.HealthCheck(
-        #         path="/",  # Ajusta esto según tu aplicación
-        #         interval=Duration.seconds(30)
-        #     ),
-        #     target_group_name="Proyecto-TG-Produccion-8003"
-        # )
+        target_group_produccion_8003 = elbv2.ApplicationTargetGroup(self, "TG Produccion 8003",
+            vpc=vpc,
+            target_type=elbv2.TargetType.INSTANCE,
+            protocol=elbv2.ApplicationProtocol.HTTP,
+            port=8003,
+            health_check=elbv2.HealthCheck(
+                path="/",  # Ajusta esto según tu aplicación
+                interval=Duration.seconds(30)
+            ),
+            target_group_name="Proyecto-TG-Produccion-8003"
+        )
 
-        # # Asociar instancias al Target Group
-        # for target_group in {target_group_produccion_8000,target_group_produccion_8001,target_group_produccion_8002,target_group_produccion_8003}:
-        #     for ec2_instance in {ec2_produccion_01,ec2_produccion_02}:
-        #         target_group.add_target(targets.InstanceTarget(ec2_instance))
+        # Asociar instancias al Target Group
+        for target_group in {target_group_produccion_8000,target_group_produccion_8001,target_group_produccion_8002,target_group_produccion_8003}:
+            for ec2_instance in {ec2_produccion_01,ec2_produccion_02}:
+                target_group.add_target(targets.InstanceTarget(ec2_instance))
 
 
-        # # Crear el Load Balancer
-        # load_balancer = elbv2.ApplicationLoadBalancer(self, "LB Produccion",
-        #     vpc=vpc,
-        #     internet_facing=True,
-        #     security_group=security_group_produccion,
-        #     load_balancer_name="Proyecto-LB-Produccion",
-        #     vpc_subnets=ec2.SubnetSelection(
-        #         subnet_type=ec2.SubnetType.PUBLIC,
-        #         availability_zones=["us-east-1a", "us-east-1b"] 
-        #     )
-        # )
+        # Crear el Load Balancer
+        load_balancer = elbv2.ApplicationLoadBalancer(self, "LB Produccion",
+            vpc=vpc,
+            internet_facing=True,
+            security_group=security_group_produccion,
+            load_balancer_name="Proyecto-LB-Produccion",
+            vpc_subnets=ec2.SubnetSelection(
+                subnet_type=ec2.SubnetType.PUBLIC,
+                availability_zones=["us-east-1a", "us-east-1b"] 
+            )
+        )
 
-        # # Crear listeners para cada puerto
-        # listener_8000 = load_balancer.add_listener("Listener8000", port=8000, open=True,protocol=elbv2.ApplicationProtocol.HTTP)
-        # listener_8001 = load_balancer.add_listener("Listener8001", port=8001, open=True,protocol=elbv2.ApplicationProtocol.HTTP)
-        # listener_8002 = load_balancer.add_listener("Listener8002", port=8002, open=True,protocol=elbv2.ApplicationProtocol.HTTP)
-        # listener_8003 = load_balancer.add_listener("Listener8003", port=8003, open=True,protocol=elbv2.ApplicationProtocol.HTTP)
+        # Crear listeners para cada puerto
+        listener_8000 = load_balancer.add_listener("Listener8000", port=8000, open=True,protocol=elbv2.ApplicationProtocol.HTTP)
+        listener_8001 = load_balancer.add_listener("Listener8001", port=8001, open=True,protocol=elbv2.ApplicationProtocol.HTTP)
+        listener_8002 = load_balancer.add_listener("Listener8002", port=8002, open=True,protocol=elbv2.ApplicationProtocol.HTTP)
+        listener_8003 = load_balancer.add_listener("Listener8003", port=8003, open=True,protocol=elbv2.ApplicationProtocol.HTTP)
 
-        # # Agregar los Target Groups a cada Listener
-        # listener_8000.add_target_groups("TargetGroup8000", target_groups=[target_group_produccion_8000])
-        # listener_8001.add_target_groups("TargetGroup8001", target_groups=[target_group_produccion_8001])
-        # listener_8002.add_target_groups("TargetGroup8002", target_groups=[target_group_produccion_8002])
-        # listener_8003.add_target_groups("TargetGroup8003", target_groups=[target_group_produccion_8003])
+        # Agregar los Target Groups a cada Listener
+        listener_8000.add_target_groups("TargetGroup8000", target_groups=[target_group_produccion_8000])
+        listener_8001.add_target_groups("TargetGroup8001", target_groups=[target_group_produccion_8001])
+        listener_8002.add_target_groups("TargetGroup8002", target_groups=[target_group_produccion_8002])
+        listener_8003.add_target_groups("TargetGroup8003", target_groups=[target_group_produccion_8003])
         
         ec2_bd_datos.add_user_data(
             "#!/bin/bash",
