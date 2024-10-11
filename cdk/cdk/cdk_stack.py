@@ -217,22 +217,12 @@ class CdkStack(Stack):
         )
 
         # Outputs
-        CfnOutput(self, "InstanceId",
-            description="ID de la instancia EC2",
-            value=ec2_bd_datos.instance_id
+        CfnOutput(self, "LoadBalancerDNS",
+            description="DNS del Load Balancer",
+            value=ec2_bd_datos.load_balancer.load_balancer_dns_name
         )
 
-        CfnOutput(self, "InstancePublicIP",
-            description="IP publica de la instancia",
-            value=ec2_bd_datos.instance_public_ip
-        )
-
-        CfnOutput(self, "websimpleURL",
-            description="URL de websimple",
-            value=f"http://{ec2_bd_datos.instance_public_ip}/websimple"
-        )
-
-        CfnOutput(self, "webplantillaURL",
-            description="URL de webplantilla",
-            value=f"http://{ec2_bd_datos.instance_public_ip}/webplantilla"
+        CfnOutput(self, "Base de datos - adminer",
+            description="Adminer",
+            value=f"http://{ec2_bd_datos.instance_public_ip}:8080"
         )
