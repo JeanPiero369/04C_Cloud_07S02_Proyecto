@@ -1,4 +1,4 @@
-FROM python:3-slim
+FROM python:3.10
 
 # Establece el directorio de trabajo
 WORKDIR /programas/ingesta
