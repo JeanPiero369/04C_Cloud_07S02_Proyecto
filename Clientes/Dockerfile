@@ -1,5 +1,5 @@
 # Usa una imagen base de Python
-FROM python:3-slim
+FROM python:3.11
 
 # Instalar dependencias del sistema necesarias para la construcción
 RUN apt-get update && apt-get install -y build-essential python3-dev gcc
