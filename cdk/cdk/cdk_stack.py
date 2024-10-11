@@ -55,6 +55,7 @@ class CdkStack(Stack):
 
         security_group_bd_datos.add_ingress_rule(ec2.Peer.any_ipv4(), ec2.Port.tcp(22), "Allow SSH")
         security_group_bd_datos.add_ingress_rule(ec2.Peer.any_ipv4(), ec2.Port.tcp(8080), "Allow Traffic on Port 8000")
+        security_group_bd_datos.add_ingress_rule(ec2.Peer.any_ipv4(), ec2.Port.tcp(8000), "Allow Traffic on Port 8000")
         security_group_bd_datos.add_ingress_rule(ec2.Peer.security_group_id(security_group_produccion.security_group_id), ec2.Port.tcp(8000), "Allow Traffic on Port 8000")
         security_group_bd_datos.add_ingress_rule(ec2.Peer.security_group_id(security_group_produccion.security_group_id), ec2.Port.tcp(8001), "Allow Traffic on Port 8001")
         security_group_bd_datos.add_ingress_rule(ec2.Peer.security_group_id(security_group_produccion.security_group_id), ec2.Port.tcp(8002), "Allow Traffic on Port 8002")
@@ -210,8 +211,9 @@ class CdkStack(Stack):
         ec2_produccion_01.add_user_data(
             "#!/bin/bash",
             f"export DB_HOST={ip_privada}",
+            "cd ~",
             "git clone https://github.com/JeanPiero369/04C_Cloud_07S02_Proyecto.git",
-            "cd ./04C_Cloud_07S02_Proyecto/Clientes",
+            "cd ./04C_Cloud_07S02_Proyecto",
             "docker compose up -d",
         )
 
