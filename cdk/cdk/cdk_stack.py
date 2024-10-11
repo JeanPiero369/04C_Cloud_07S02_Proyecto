@@ -55,8 +55,8 @@ class CdkStack(Stack):
 
         security_group_bd_datos.add_ingress_rule(ec2.Peer.any_ipv4(), ec2.Port.tcp(22), "Allow SSH")
         security_group_bd_datos.add_ingress_rule(ec2.Peer.any_ipv4(), ec2.Port.tcp(8080), "Allow Traffic on Port 8000")
-        security_group_bd_datos.add_ingress_rule(ec2.Peer.any_ipv4(), ec2.Port.tcp(8000), "Allow Traffic on Port 8000")
-        security_group_bd_datos.add_ingress_rule(ec2.Peer.any_ipv4(), ec2.Port.tcp(8001), "Allow Traffic on Port 8000")
+        security_group_bd_datos.add_ingress_rule(ec2.Peer.any_ipv4(), ec2.Port.tcp(8000), "Allow Traffic on Port 8001")
+        security_group_bd_datos.add_ingress_rule(ec2.Peer.any_ipv4(), ec2.Port.tcp(8001), "Allow Traffic on Port 8002")
         security_group_bd_datos.add_ingress_rule(ec2.Peer.security_group_id(security_group_produccion.security_group_id), ec2.Port.tcp(8000), "Allow Traffic on Port 8000")
         security_group_bd_datos.add_ingress_rule(ec2.Peer.security_group_id(security_group_produccion.security_group_id), ec2.Port.tcp(8001), "Allow Traffic on Port 8001")
         security_group_bd_datos.add_ingress_rule(ec2.Peer.security_group_id(security_group_produccion.security_group_id), ec2.Port.tcp(8002), "Allow Traffic on Port 8002")
@@ -174,30 +174,29 @@ class CdkStack(Stack):
             for ec2_instance in {ec2_produccion_01,ec2_produccion_02}:
                 target_group.add_target(targets.InstanceTarget(ec2_instance))
 
+        # # Crear el Load Balancer
+        # load_balancer = elbv2.ApplicationLoadBalancer(self, "LB Produccion",
+        #     vpc=vpc,
+        #     internet_facing=True,
+        #     security_group=security_group_produccion,
+        #     load_balancer_name="Proyecto-LB-Produccion",
+        #     vpc_subnets=ec2.SubnetSelection(
+        #         subnet_type=ec2.SubnetType.PUBLIC,
+        #         availability_zones=["us-east-1a", "us-east-1b"] 
+        #     )
+        # )
 
-        # Crear el Load Balancer
-        load_balancer = elbv2.ApplicationLoadBalancer(self, "LB Produccion",
-            vpc=vpc,
-            internet_facing=True,
-            security_group=security_group_produccion,
-            load_balancer_name="Proyecto-LB-Produccion",
-            vpc_subnets=ec2.SubnetSelection(
-                subnet_type=ec2.SubnetType.PUBLIC,
-                availability_zones=["us-east-1a", "us-east-1b"] 
-            )
-        )
+        # # Crear listeners para cada puerto
+        # listener_8000 = load_balancer.add_listener("Listener8000", port=8000, open=True,protocol=elbv2.ApplicationProtocol.HTTP)
+        # listener_8001 = load_balancer.add_listener("Listener8001", port=8001, open=True,protocol=elbv2.ApplicationProtocol.HTTP)
+        # listener_8002 = load_balancer.add_listener("Listener8002", port=8002, open=True,protocol=elbv2.ApplicationProtocol.HTTP)
+        # listener_8003 = load_balancer.add_listener("Listener8003", port=8003, open=True,protocol=elbv2.ApplicationProtocol.HTTP)
 
-        # Crear listeners para cada puerto
-        listener_8000 = load_balancer.add_listener("Listener8000", port=8000, open=True,protocol=elbv2.ApplicationProtocol.HTTP)
-        listener_8001 = load_balancer.add_listener("Listener8001", port=8001, open=True,protocol=elbv2.ApplicationProtocol.HTTP)
-        listener_8002 = load_balancer.add_listener("Listener8002", port=8002, open=True,protocol=elbv2.ApplicationProtocol.HTTP)
-        listener_8003 = load_balancer.add_listener("Listener8003", port=8003, open=True,protocol=elbv2.ApplicationProtocol.HTTP)
-
-        # Agregar los Target Groups a cada Listener
-        listener_8000.add_target_groups("TargetGroup8000", target_groups=[target_group_produccion_8000])
-        listener_8001.add_target_groups("TargetGroup8001", target_groups=[target_group_produccion_8001])
-        listener_8002.add_target_groups("TargetGroup8002", target_groups=[target_group_produccion_8002])
-        listener_8003.add_target_groups("TargetGroup8003", target_groups=[target_group_produccion_8003])
+        # # Agregar los Target Groups a cada Listener
+        # listener_8000.add_target_groups("TargetGroup8000", target_groups=[target_group_produccion_8000])
+        # listener_8001.add_target_groups("TargetGroup8001", target_groups=[target_group_produccion_8001])
+        # listener_8002.add_target_groups("TargetGroup8002", target_groups=[target_group_produccion_8002])
+        # listener_8003.add_target_groups("TargetGroup8003", target_groups=[target_group_produccion_8003])
         
         ip_privada = ec2_bd_datos.instance_private_ip
         
