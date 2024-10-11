@@ -53,12 +53,10 @@ class CdkStack(Stack):
             allow_all_outbound=True
         )
 
-        security_group_bd_datos.add_ingress_rule(ec2.Peer.any_ipv4(), ec2.Port.tcp(22), "Allow SSH")
-        security_group_bd_datos.add_ingress_rule(ec2.Peer.any_ipv4(), ec2.Port.tcp(8000), "Allow Traffic on Port 8000")
-        security_group_bd_datos.add_ingress_rule(ec2.Peer.any_ipv4(), ec2.Port.tcp(8001), "Allow Traffic on Port 8001")
-        security_group_bd_datos.add_ingress_rule(ec2.Peer.any_ipv4(), ec2.Port.tcp(8002), "Allow Traffic on Port 8002")
-
-
+        security_group_bd_datos.add_ingress_rule(ec2.Peer.security_group(security_group_produccion), ec2.Port.tcp(22), "Allow SSH")
+        security_group_bd_datos.add_ingress_rule(ec2.Peer.security_group(security_group_produccion), ec2.Port.tcp(8000), "Allow Traffic on Port 8000")
+        security_group_bd_datos.add_ingress_rule(ec2.Peer.security_group(security_group_produccion), ec2.Port.tcp(8001), "Allow Traffic on Port 8001")
+        security_group_bd_datos.add_ingress_rule(ec2.Peer.security_group(security_group_produccion), ec2.Port.tcp(8002), "Allow Traffic on Port 8002")
 
         # EC2 Instance
         ec2_bd_datos = ec2.Instance(self, "MV Base de datos",
@@ -198,12 +196,22 @@ class CdkStack(Stack):
         listener_8002.add_target_groups("TargetGroup8002", target_groups=[target_group_produccion_8002])
         listener_8003.add_target_groups("TargetGroup8003", target_groups=[target_group_produccion_8003])
 
+
+        ip_privada = ec2_bd_datos.instance_private_ip
+
+        
         ec2_bd_datos.add_user_data(
             "#!/bin/bash",
-            "cd /var/www/html/",
-            "git clone https://github.com/utec-cc-2024-2-test/websimple.git",
-            "git clone https://github.com/utec-cc-2024-2-test/webplantilla.git",
-            "ls -l"
+            "docker run -d --rm --name mysql_c -e MYSQL_ROOT_PASSWORD=utec -p 8000:3306 -v mysql_data:/var/lib/mysql mysql:8.0",
+            "docker run -d --rm --name adminer_c -p 8080:8080 adminer",
+        )
+
+        ec2_produccion_01.add_user_data(
+            "#!/bin/bash",
+            f"export DB_HOST={ip_privada}",
+            "git clone https://github.com/JeanPiero369/04C_Cloud_07S02_Proyecto.git",
+            "cd ./04C_Cloud_07S02_Proyecto/Clientes",
+            "docker compose up -d",
         )
 
         # Outputs
