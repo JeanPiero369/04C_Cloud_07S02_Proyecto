@@ -151,9 +151,9 @@ def create_postgresql_tables():
 def create_mongodb_database():
     try:
         #  Obtener la URI de MongoDB y el nombre de la base de datos de las variables de entorno
-        mongo_host = os.environ.get("MONGODB_HOST", "localhost")  # Cambia a tu host de MongoDB
-        mongo_port = os.environ.get("MONGODB_PORT", "27017")       # Cambia a tu puerto de MongoDB
-        mongo_db = os.environ.get("MONGODB_DATABASE", "bienes")  # Cambia a tu base de datos MongoDB
+        mongo_host = os.environ.get("MONGODB_HOST")  # Cambia a tu host de MongoDB
+        mongo_port = os.environ.get("MONGODB_PORT")       # Cambia a tu puerto de MongoDB
+        mongo_db = os.environ.get("MONGODB_DATABASE")  # Cambia a tu base de datos MongoDB
 
         # Crear la URI de conexión
         mongo_uri = f"mongodb://{mongo_host}:{mongo_port}/"

@@ -118,7 +118,7 @@ def load_data_seguros_postgresql():
 def load_data_bienes_mongodb():
     try:
         # Comando para copiar el archivo CSV al contenedor de MongoDB
-        copy_command = "docker cp /home/ubuntu/TP-CC-GRUPO4/data/data/generated_data/bienes_generated.csv mongo_c:/data/bienes_generated.csv"
+        copy_command = "docker cp /home/ubuntu/04C_Cloud_07S02_Proyecto/data/data/generated_data/bienes_generated.csv mongo_c:/data/bienes_generated.csv"
 
         # Comando para importar el archivo CSV en la base de datos MongoDB
         import_command = "docker exec -it mongo_c mongoimport --host localhost --port 27017 --db bienes --collection bienes --type csv --file /data/bienes_generated.csv --headerline"
