@@ -170,38 +170,35 @@ class CdkStack(Stack):
         )
 
         # Asociar instancias al Target Group
-        # for target_group in {target_group_produccion_8000,target_group_produccion_8001,target_group_produccion_8002,target_group_produccion_8003}:
-        #     for ec2_instance in {ec2_produccion_01,ec2_produccion_02}:
-        #         target_group.add_target(targets.InstanceTarget(ec2_instance))
+        for target_group in {target_group_produccion_8000,target_group_produccion_8001,target_group_produccion_8002,target_group_produccion_8003}:
+            for ec2_instance in {ec2_produccion_01,ec2_produccion_02}:
+                target_group.add_target(targets.InstanceTarget(ec2_instance))
 
-        # # Crear el Load Balancer
-        # load_balancer = elbv2.ApplicationLoadBalancer(self, "LB Produccion",
-        #     vpc=vpc,
-        #     internet_facing=True,
-        #     security_group=security_group_produccion,
-        #     load_balancer_name="Proyecto-LB-Produccion",
-        #     vpc_subnets=ec2.SubnetSelection(
-        #         subnet_type=ec2.SubnetType.PUBLIC,
-        #         availability_zones=["us-east-1a", "us-east-1b"] 
-        #     )
-        # )
+        # Crear el Load Balancer
+        load_balancer = elbv2.ApplicationLoadBalancer(self, "LB Produccion",
+            vpc=vpc,
+            internet_facing=True,
+            security_group=security_group_produccion,
+            load_balancer_name="Proyecto-LB-Produccion",
+            vpc_subnets=ec2.SubnetSelection(
+                subnet_type=ec2.SubnetType.PUBLIC,
+                availability_zones=["us-east-1a", "us-east-1b"] 
+            )
+        )
 
-        # # Crear listeners para cada puerto
-        # listener_8000 = load_balancer.add_listener("Listener8000", port=8000, open=True,protocol=elbv2.ApplicationProtocol.HTTP)
-        # listener_8001 = load_balancer.add_listener("Listener8001", port=8001, open=True,protocol=elbv2.ApplicationProtocol.HTTP)
-        # listener_8002 = load_balancer.add_listener("Listener8002", port=8002, open=True,protocol=elbv2.ApplicationProtocol.HTTP)
-        # listener_8003 = load_balancer.add_listener("Listener8003", port=8003, open=True,protocol=elbv2.ApplicationProtocol.HTTP)
+        # Crear listeners para cada puerto
+        listener_8000 = load_balancer.add_listener("Listener8000", port=8000, open=True,protocol=elbv2.ApplicationProtocol.HTTP)
+        listener_8001 = load_balancer.add_listener("Listener8001", port=8001, open=True,protocol=elbv2.ApplicationProtocol.HTTP)
+        listener_8002 = load_balancer.add_listener("Listener8002", port=8002, open=True,protocol=elbv2.ApplicationProtocol.HTTP)
+        listener_8003 = load_balancer.add_listener("Listener8003", port=8003, open=True,protocol=elbv2.ApplicationProtocol.HTTP)
 
-        # # Agregar los Target Groups a cada Listener
-        # listener_8000.add_target_groups("TargetGroup8000", target_groups=[target_group_produccion_8000])
-        # listener_8001.add_target_groups("TargetGroup8001", target_groups=[target_group_produccion_8001])
-        # listener_8002.add_target_groups("TargetGroup8002", target_groups=[target_group_produccion_8002])
-        # listener_8003.add_target_groups("TargetGroup8003", target_groups=[target_group_produccion_8003])
+        # Agregar los Target Groups a cada Listener
+        listener_8000.add_target_groups("TargetGroup8000", target_groups=[target_group_produccion_8000])
+        listener_8001.add_target_groups("TargetGroup8001", target_groups=[target_group_produccion_8001])
+        listener_8002.add_target_groups("TargetGroup8002", target_groups=[target_group_produccion_8002])
+        listener_8003.add_target_groups("TargetGroup8003", target_groups=[target_group_produccion_8003])
         
         ip_privada = ec2_bd_datos.instance_private_ip
-        
-        # ec2_produccion_01.node.add_dependency(ec2_bd_datos)
-        # ec2_produccion_02.node.add_dependency(ec2_bd_datos)
 
         ec2_bd_datos.add_user_data(
             "#!/bin/bash",
@@ -209,6 +206,10 @@ class CdkStack(Stack):
             "docker run -d --rm --name adminer_c -p 8080:8080 adminer",
             "docker run -d --rm --name postgres_c -e POSTGRES_PASSWORD=utec -p 8001:5432 -v postgres_data:/var/lib/postgresql/data postgres:14",
             "docker run -d --rm --name mongo_c -p 8002:27017 -v mongo_data:/data/db mongo:latest",
+        )
+
+        ec2_ingesta.add_user_data(
+            "#!/bin/bash",
             "cd /home/ubuntu/",
             "git clone https://github.com/JeanPiero369/04C_Cloud_07S02_Proyecto.git",
             "cd ./04C_Cloud_07S02_Proyecto/data",
@@ -216,20 +217,20 @@ class CdkStack(Stack):
             "docker compose up -d",
         )
 
-        # ec2_produccion_01.add_user_data(
-        #     "#!/bin/bash",
-        #     "cd /home/ubuntu/",
-        #     "git clone https://github.com/JeanPiero369/04C_Cloud_07S02_Proyecto.git",
-        #     "cd ./04C_Cloud_07S02_Proyecto",
-        #     f"echo 'DB_HOST={ip_privada}' > .env",  # Usar comillas simples
-        #     "docker compose up -d",
-        # )
+        ec2_produccion_01.add_user_data(
+            "#!/bin/bash",
+            "cd /home/ubuntu/",
+            "git clone https://github.com/JeanPiero369/04C_Cloud_07S02_Proyecto.git",
+            "cd ./04C_Cloud_07S02_Proyecto",
+            f"echo 'DB_HOST={ip_privada}' > .env",  # Usar comillas simples
+            "docker compose up -d",
+        )
 
-        # Outputs
-        # CfnOutput(self, "LoadBalancerDNS",
-        #     description="DNS del Load Balancer",
-        #     value=load_balancer.load_balancer_dns_name
-        # )
+        #Outputs
+        CfnOutput(self, "LoadBalancerDNS",
+            description="DNS del Load Balancer",
+            value=load_balancer.load_balancer_dns_name
+        )
 
         CfnOutput(self, "Base de datos - adminer",
             description="Adminer",
