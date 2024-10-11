@@ -10,11 +10,11 @@ app = FastAPI()
 import os
 
 # Configuración de la base de datos
-host_name = os.getenv("DATABASE_HOST")
-port_number = os.getenv("DATABASE_PORT")
-user_name = os.getenv("DATABASE_USER")
-password_db = os.getenv("DATABASE_PASSWORD")
-database_name = os.getenv("DATABASE_NAME")
+host_name = os.getenv("MYSQL_HOST")
+port_number = os.getenv("MYSQL_PORT")
+user_name = os.getenv("MYSQL_USER")
+password_db = os.getenv("MYSQL_PASSWORD")
+database_name = os.getenv("MYSQL_DATABASE")
 
 
 # Health check endpoint
