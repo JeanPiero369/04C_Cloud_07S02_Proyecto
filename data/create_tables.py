@@ -150,12 +150,27 @@ def create_postgresql_tables():
 # ================== Crear base de datos en MongoDB ==================
 def create_mongodb_database():
     try:
-        # Conexión a MongoDB
-        client = MongoClient("mongodb://localhost:27017/")
-        db = client['bienes']  # Crea una base de datos llamada 'bienes'
-        collection = db["bienes"]
-        collection.insert_one({"mensaje":"conexion exitosa"})
-        print("Base de datos 'bienes' creada en MongoDB.")
+        #  Obtener la URI de MongoDB y el nombre de la base de datos de las variables de entorno
+        mongo_host = os.environ.get("MONGODB_HOST", "localhost")  # Cambia a tu host de MongoDB
+        mongo_port = os.environ.get("MONGODB_PORT", "27017")       # Cambia a tu puerto de MongoDB
+        mongo_db = os.environ.get("MONGODB_DATABASE", "bienes")  # Cambia a tu base de datos MongoDB
+
+        # Crear la URI de conexión
+        mongo_uri = f"mongodb://{mongo_host}:{mongo_port}/"
+
+        client = MongoClient(mongo_uri)
+
+        # Verificar si la base de datos 'bienes' existe y eliminarla si es así
+        if mongo_db in client.list_database_names():
+            client.drop_database(mongo_db)
+            print("Base de datos 'bienes' eliminada correctamente.")
+
+        # Crear la base de datos y la colección nuevamente
+        db = client[mongo_db]  # Crea una base de datos llamada 'bienes'
+        collection = db[mongo_db]  # Crea una colección llamada 'bienes'
+        collection.insert_one({"mensaje": "conexion exitosa"})
+        print("Base de datos y colección 'bienes' creadas en MongoDB.")
+
     except Exception as e:
         print(f"Error al crear la base de datos en MongoDB: {e}")
     finally:
@@ -165,4 +180,4 @@ def create_mongodb_database():
 def crear_todas_las_tablas():
     create_mysql_tables()  # Crear tablas en MySQL
     create_postgresql_tables()  # Crear tablas en PostgreSQL
-    #create_mongodb_database()  # Crear base de datos en MongoDB
+    create_mongodb_database()  # Crear base de datos en MongoDB

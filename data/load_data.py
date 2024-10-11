@@ -117,25 +117,28 @@ def load_data_seguros_postgresql():
 # ================== Cargar datos en MongoDB ==================
 def load_data_bienes_mongodb():
     try:
-        # Conexión a MongoDB
-        client = MongoClient("mongodb://localhost:27017/")
-        db = client['bienes']  # Cambia esto a tu base de datos de MongoDB
-        bienes_collection = db['bienes']  # Cambia esto a tu colección de MongoDB
+        # Comando para copiar el archivo CSV al contenedor de MongoDB
+        copy_command = "docker cp /home/ubuntu/TP-CC-GRUPO4/data/data/generated_data/bienes_generated.csv mongo_c:/data/bienes_generated.csv"
 
-        # Cargar el CSV en pandas
-        bienes_df = pd.read_csv('./data/generated_data/bienes_generated.csv')
+        # Comando para importar el archivo CSV en la base de datos MongoDB
+        import_command = "docker exec -it mongo_c mongoimport --host localhost --port 27017 --db bienes --collection bienes --type csv --file /data/bienes_generated.csv --headerline"
 
-        # Convertir el DataFrame a un diccionario para inserción en MongoDB
-        bienes_dict = bienes_df.to_dict("records")
+        # Ejecutar los comandos
+        copy_result = os.system(copy_command)
+        if copy_result != 0:
+            raise Exception("Error al copiar el archivo CSV al contenedor MongoDB.")
 
-        # Inserción masiva en MongoDB
-        bienes_collection.insert_many(bienes_dict)
-        print(f"{len(bienes_dict)} registros insertados en MongoDB.")
+        import_result = os.system(import_command)
+        if import_result != 0:
+            raise Exception("Error al importar el archivo CSV en MongoDB.")
+
+        print("Datos cargados exitosamente en MongoDB.")
+
     except Exception as e:
-        print(f"Error al cargar datos en MongoDB: {e}")
+        print(f"Ocurrió un error: {e}")
 
 # ================== Ejecutar todas las funciones de carga ==================
 def cargar_todos_los_datos():
     load_data_mysql()  # Cargar datos en MySQL
     load_data_seguros_postgresql()  # Cargar datos en PostgreSQL
-    #load_data_bienes_mongodb()  # Cargar datos en MongoDB
+    load_data_bienes_mongodb()  # Cargar datos en MongoDB
