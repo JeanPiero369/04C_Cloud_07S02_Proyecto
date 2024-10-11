@@ -1,5 +1,9 @@
 version: '3.8'
 
+networks:
+  my_network:
+    driver: bridge
+
 services:
   clientes:
     build:
@@ -40,9 +44,9 @@ services:
     ports:
       - "8000:8000"
     environment:
-      - CLIENTE_API_URL=http://clientes:8001
-      - BIENES_API_URL=http://bienes:8003
-      - POLIZA_API_URL=http://polizas:8002
+      - CLIENTE_API_URL=http://clientes:8000
+      - BIENES_API_URL=http://bienes:3000
+      - POLIZA_API_URL=http://polizas:8080
     restart: always
     depends_on:
       - clientes
