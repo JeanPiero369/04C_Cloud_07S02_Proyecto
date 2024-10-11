@@ -246,6 +246,30 @@ class CdkStack(Stack):
             value=load_balancer.load_balancer_dns_name
         )
 
+        #Outputs
+        CfnOutput(self, "LoadBalancerDNS:orquestador",
+            description="DNS del Load Balancer",
+            value=f"{load_balancer.load_balancer_dns_name}:8000"
+        )
+
+        #Outputs
+        CfnOutput(self, "LoadBalancerDNS:clientes",
+            description="DNS del Load Balancer",
+            value=f"{load_balancer.load_balancer_dns_name}:8001"
+        )
+
+        #Outputs
+        CfnOutput(self, "LoadBalancerDNS:polizas",
+            description="DNS del Load Balancer",
+            value=f"{load_balancer.load_balancer_dns_name}:8002"
+        )
+
+        #Outputs
+        CfnOutput(self, "LoadBalancerDNS:bienes",
+            description="DNS del Load Balancer",
+            value=f"{load_balancer.load_balancer_dns_name}:8003"
+        )
+
         CfnOutput(self, "Base de datos - adminer",
             description="Adminer",
             value=f"http://{ec2_bd_datos.instance_public_ip}:8080"
